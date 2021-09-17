@@ -1,0 +1,6 @@
+env
+__pyca*
+
+test/*
+
+*.json
