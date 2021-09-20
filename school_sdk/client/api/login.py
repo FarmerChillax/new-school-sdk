@@ -21,11 +21,20 @@ class ZFLogin(BaseCrawler):
     LOGIN_EXTEND = b'{"appName":"Netscape","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36","appVersion":"5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36"}'
 
     def get_login(self, **kwargs):
+        """对外登录接口
+            1. 获取csrf token 和 原始的cookie
+            2. 获取rsa加密公钥
+            3. 通过学校配置，决定是否启用验证码验证
+            4. 发起登录请求
+        Raises:
+            LoginException: 登录失败提示
+        """
         self.get_raw_csrf_and_cookie()
         self.get_rsa_publick_key()
-        for _ in range(3):
-            if self.verification_captcha():
-                break
+        if self.school.config['exist_verify']:
+            for _ in range(3):
+                if self.verification_captcha():
+                    break
         if not self._post_login():
             raise LoginException("xxx", "登录失败")
         
@@ -89,6 +98,11 @@ class ZFLogin(BaseCrawler):
         return False
 
     def _post_login(self) -> bool:
+        """发送登录请求
+
+        Returns:
+            bool: 是否登录成功
+        """
         rsa_key = RsaKey()
         m, e = self.get_rsa_publick_key()
         rsa_key.set_public(self._b64.b64tohex(m), self._b64.b64tohex(e))
@@ -103,8 +117,15 @@ class ZFLogin(BaseCrawler):
         res = self.post(url, params=params, data=data)
         return self._is_login(res.text)
 
-
     def _is_login(self, html) -> bool:
+        """工具函数，判断是否登录成功
+
+        Args:
+            html (str): html string.
+
+        Returns:
+            bool: html string 是否存在用户
+        """
         re_str = f'value="{self.account}"'
         result = re.search(re_str, html)
         return True if result else False
