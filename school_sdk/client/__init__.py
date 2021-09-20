@@ -79,7 +79,7 @@ class UserClient(BaseSchoolClient):
     def login(self):
         """用户登录，通过SchoolClient调用
         """
-        user = ZFLogin(school=self.school, account=self.account, password=self.password)
+        user = ZFLogin(user_client=self)
         user.get_raw_csrf_and_cookie()
         user.get_rsa_publick_key()
         try:

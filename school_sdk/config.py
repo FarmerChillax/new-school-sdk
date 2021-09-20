@@ -16,5 +16,8 @@ URL_ENDPOINT = {
     "INFO_URL": "",
     "SCHEDULE": {
         "API": '/kbcx/xskbcx_cxXsKb.html',
+    },
+    'SCORE': {
+        'API': 'cjcx/cjcx_cxDgXscj.html'
     }
 }

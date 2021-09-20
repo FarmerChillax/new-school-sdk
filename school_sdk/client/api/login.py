@@ -37,12 +37,10 @@ class ZFLogin(BaseCrawler):
                     break
         if not self._post_login():
             raise LoginException("xxx", "登录失败")
-        
-
-    def __init__(self, school, account, password, session=None) -> None:
-        super().__init__(school, session)
-        self.account = account
-        self.password = password
+    
+    def __init__(self, user_client) -> None:
+        super().__init__(user_client)
+        self.password = self.user_client.password
         self._csrf = None
         self.t = int(time.time() * 1000)
         self._image = None

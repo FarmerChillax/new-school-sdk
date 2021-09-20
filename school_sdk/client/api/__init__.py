@@ -17,12 +17,18 @@ class BaseCrawler():
 
     BASE_URL = ''
 
-    def __init__(self, school, session: requests.Session) -> None:
-        self.school = school
-        self._http = session or requests.Session()
+    # def __init__(self, school, session: requests.Session) -> None:
+    def __init__(self, user_client) -> None:
+        print(user_client)
+        self.user_client = user_client
+        self.school = user_client.school or None
+        self._http:requests.Session = user_client._http or requests.Session()
         self._b64 = Base64()
-        self.BASE_URL = school.base_url
+        self.BASE_URL = user_client.school.base_url
 
+    @property
+    def account(self):
+        return self.user_client.account
 
     def generate_headers(self, **kwargs):
         headers = Headers(browser="chrome", os="win", headers=True).generate()
