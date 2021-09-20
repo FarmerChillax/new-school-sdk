@@ -7,7 +7,7 @@
 '''
 
 from school_sdk.client.exceptions import LoginException, RTKException
-from school_sdk.check_code.__intit__ import ZFCaptchaDistinguish
+from school_sdk.check_code import ZFCaptchaDistinguish
 from school_sdk.client.api import BaseCrawler
 from school_sdk.client.settings import LOGIN_API_URL, LOGIN_EXTEND, LOGIN_PAGE_URL, RSA_KEY_URL, RTK_RE_KEY
 # import requests
