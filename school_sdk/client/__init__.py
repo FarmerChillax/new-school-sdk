@@ -20,7 +20,7 @@ class SchoolClient():
 
     def __init__(self, host, port:int=80, ssl:bool=False, name=None, exist_verify:bool=False,
                 lan_host=None, lan_port=80, timeout=10,
-                login_url_path=None, url_path_list=None) -> None:
+                login_url_path=None, url_endpoints=None) -> None:
         """初始化学校配置
 
         Args:
@@ -33,7 +33,7 @@ class SchoolClient():
             lan_port (int, optional): 内网主机端口号. Defaults to 80.
             timeout (int, optional): 请求超时时间. Defaults to 10.
             login_url_path ([type], optional): 登录地址. Defaults to None.
-            url_path_list ([type], optional): 地址列表. Defaults to None.
+            url_endpoints ([type], optional): 地址列表. Defaults to None.
         """
         school = {
             "name": name,
@@ -42,7 +42,7 @@ class SchoolClient():
             "lan_port": lan_port,
             "timeout": timeout,
             "login_url_path": login_url_path,
-            "url_endpoints": url_path_list or URL_ENDPOINT
+            "url_endpoints": url_endpoints or URL_ENDPOINT
         }
 
         self.base_url = f'https://{host}:{port}' if ssl else f'http://{host}:{port}'
