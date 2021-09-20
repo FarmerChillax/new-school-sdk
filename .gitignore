@@ -1,6 +1,10 @@
 env
 __pyca*
-
+.pytest_cache/
 test/*
-
 *.json
+test.py
+*.sh
+*.pyc
+.idea
+conf.py
