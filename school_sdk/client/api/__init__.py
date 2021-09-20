@@ -10,20 +10,17 @@
 # from school_sdk.client.settings import HOST
 import requests
 from fake_headers import Headers
-from school_sdk.PyRsa.pyb64 import Base64
-
+import time
 
 class BaseCrawler():
 
     BASE_URL = ''
 
-    # def __init__(self, school, session: requests.Session) -> None:
     def __init__(self, user_client) -> None:
-        print(user_client)
         self.user_client = user_client
         self.school = user_client.school or None
         self._http:requests.Session = user_client._http or requests.Session()
-        self._b64 = Base64()
+        self.t = int(time.time() * 1000)
         self.BASE_URL = user_client.school.base_url
 
     @property

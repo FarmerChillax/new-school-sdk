@@ -18,6 +18,6 @@ URL_ENDPOINT = {
         "API": '/kbcx/xskbcx_cxXsKb.html',
     },
     'SCORE': {
-        'API': 'cjcx/cjcx_cxDgXscj.html'
+        'API': '/cjcx/cjcx_cxDgXscj.html'
     }
 }

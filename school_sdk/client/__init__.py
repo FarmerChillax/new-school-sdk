@@ -6,6 +6,7 @@
     :date: 2021/09/02 22:20:52
 '''
 
+from school_sdk.client.api.score import Score
 from school_sdk.config import URL_ENDPOINT
 from school_sdk.client.api.schedules import Schedule
 from school_sdk.client.exceptions import LoginException
@@ -31,7 +32,7 @@ class SchoolClient():
             lan_port (int, optional): 内网主机端口号. Defaults to 80.
             timeout (int, optional): 请求超时时间. Defaults to 10.
             login_url_path ([type], optional): 登录地址. Defaults to None.
-            url_endpoints ([type], optional): 地址列表. Defaults to None.
+            url_endpoints ([dict], optional): 地址列表. Defaults to None.
         """
         school = {
             "name": name,
@@ -59,7 +60,7 @@ class SchoolClient():
 
 class UserClient(BaseSchoolClient):
     schedule:Schedule = None
-
+    score: Score = None
     def __init__(self, school, account, password) -> None:
         """初始化用户类
         用户类继承自学校
@@ -97,3 +98,8 @@ class UserClient(BaseSchoolClient):
         if self.schedule is None:
             self.schedule = Schedule(self)
         return self.schedule.get_schedule_dict(**kwargs)
+    
+    def get_score(self, **kwargs):
+        if self.score is None:
+            self.score = Score(self)
+        return self.score.get_score()

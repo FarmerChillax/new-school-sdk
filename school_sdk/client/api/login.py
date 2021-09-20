@@ -8,7 +8,7 @@
 from school_sdk.client.exceptions import LoginException, RTKException
 from school_sdk.check_code import ZFCaptchaDistinguish
 from school_sdk.client.api import BaseCrawler
-
+from school_sdk.PyRsa.pyb64 import Base64
 from school_sdk.PyRsa import RsaKey
 from pyquery import PyQuery as pq
 import time
@@ -42,7 +42,7 @@ class ZFLogin(BaseCrawler):
         super().__init__(user_client)
         self.password = self.user_client.password
         self._csrf = None
-        self.t = int(time.time() * 1000)
+        self._b64 = Base64()
         self._image = None
         self.path = self.school.config["url_endpoints"]['LOGIN']
 
