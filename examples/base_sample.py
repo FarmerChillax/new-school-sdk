@@ -6,8 +6,8 @@
     :date: 2021/09/18 00:31:02
 '''
 
-from school_api.client import UserClient
-from school_api import SchoolClient
+from school_sdk.client import UserClient
+from school_sdk import SchoolClient
 
 # 实例化学校
 Gdust = SchoolClient("172.16.254.1")

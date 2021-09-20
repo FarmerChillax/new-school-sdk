@@ -1,0 +1,17 @@
+Metadata-Version: 1.1
+Name: school-sdk
+Version: 1.0.2
+Summary: zf School SDK for Python
+Home-page: https://github.com/Farmer-chong/new-school-sdk
+Author: farmer.chillax
+Author-email: farmer-chong@qq.com
+License: MIT
+Description: UNKNOWN
+Platform: any
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
