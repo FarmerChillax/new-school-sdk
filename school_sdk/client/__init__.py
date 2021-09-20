@@ -6,6 +6,7 @@
     :date: 2021/09/02 22:20:52
 '''
 
+from school_sdk.config import URL_ENDPOINT
 from school_sdk.client.api.schedules import Schedule
 from school_sdk.client.api import login
 from school_sdk.client.exceptions import LoginException
@@ -41,7 +42,7 @@ class SchoolClient():
             "lan_port": lan_port,
             "timeout": timeout,
             "login_url_path": login_url_path,
-            "url_path_list": url_path_list
+            "url_endpoints": url_path_list or URL_ENDPOINT
         }
 
         self.base_url = f'https://{host}:{port}' if ssl else f'http://{host}:{port}'

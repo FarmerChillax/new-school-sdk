@@ -5,12 +5,10 @@
     :url: https://blog.farmer233.top
     :date: 2021/09/02 22:12:00
 '''
-
 from school_sdk.client.exceptions import LoginException, RTKException
 from school_sdk.check_code import ZFCaptchaDistinguish
 from school_sdk.client.api import BaseCrawler
-from school_sdk.client.settings import LOGIN_API_URL, LOGIN_EXTEND, LOGIN_PAGE_URL, RSA_KEY_URL, RTK_RE_KEY
-# import requests
+
 from school_sdk.PyRsa import RsaKey
 from pyquery import PyQuery as pq
 import time
@@ -19,6 +17,8 @@ import json
 import base64
 
 class ZFLogin(BaseCrawler):
+
+    LOGIN_EXTEND = b'{"appName":"Netscape","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36","appVersion":"5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36"}'
 
     def get_login(self, **kwargs):
         self.get_raw_csrf_and_cookie()
@@ -37,11 +37,12 @@ class ZFLogin(BaseCrawler):
         self._csrf = None
         self.t = int(time.time() * 1000)
         self._image = None
+        self.path = self.school.config["url_endpoints"]['LOGIN']
 
     def get_raw_csrf_and_cookie(self):
         """获取CSRF令牌
         """
-        url = f'{LOGIN_PAGE_URL}'
+        url = self.path['INDEX']
         res = self.get(url)
         doc = pq(res.text)
         csrf = doc("#csrftoken").attr("value")
@@ -53,7 +54,7 @@ class ZFLogin(BaseCrawler):
         Returns:
             str: return RSA moduls and exponent
         """
-        url = f'{RSA_KEY_URL}'
+        url = self.path["PUBLIC_KEY"]
         params = {"time": self.t, "_": self.t}
         headers = self.generate_headers()
         # headers.setdefault("X-Requested-With", "XMLHttpRequest")
@@ -73,13 +74,13 @@ class ZFLogin(BaseCrawler):
         x, y = cap.verify()
         track = self._get_track(x, y)
         captcha_verify_result = json.dumps(track).encode('utf-8')
-        url = f'{LOGIN_API_URL}'
+        url = self.path["CAPTCHA"]
         data = {
             "instanceId": "zfcaptchaLogin",
             "rtk": rtk,
             "time": int(time.time() * 1000),
             "mt": base64.b64encode(captcha_verify_result),
-            "extend": base64.b64encode(LOGIN_EXTEND),
+            "extend": base64.b64encode(self.LOGIN_EXTEND),
             "type": "verify"
         }
         res = self.post(url=url, data=data)
@@ -98,7 +99,7 @@ class ZFLogin(BaseCrawler):
             'mm': self._b64.hex2b64(rr)
         }
         params = {"time": self.t}
-        url = f'{LOGIN_PAGE_URL}'
+        url =  self.path['INDEX']
         res = self.post(url, params=params, data=data)
         return self._is_login(res.text)
 
@@ -118,7 +119,7 @@ class ZFLogin(BaseCrawler):
             "time": {self.t},
             "instanceId": "zfcaptchaLogin"
         }
-        url = f'{LOGIN_API_URL}'
+        url = self.path["CAPTCHA"]
         res = self.get(url, params=params)
         captcha_data = res.json()
         params.update({
@@ -126,7 +127,7 @@ class ZFLogin(BaseCrawler):
             "imtk": captcha_data.get("imtk"),
             "id": captcha_data.get("si")
         })
-        url = f'{LOGIN_API_URL}'
+        url = self.path["CAPTCHA"]
         res = self.get(url=url, params=params)
         if res.status_code == 200:
             return res.content
@@ -135,14 +136,14 @@ class ZFLogin(BaseCrawler):
         """获取rtk
         从JavaScript文件中提前rtk
         """
-        url = f'{LOGIN_API_URL}'
+        url = self.path['CAPTCHA']
         params = {
             "type": "resource",
             "instanceId": "zfcaptchaLogin",
             "name": "zfdun_captcha.js"
         }
         res = self.get(url, params=params)
-        result = re.search(RTK_RE_KEY, res.text)
+        result = re.search("tk:'(.*)',", res.text)
         try:
             return result.group(1)
         except:
