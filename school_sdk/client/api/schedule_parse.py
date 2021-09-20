@@ -36,14 +36,17 @@ class ScheduleParse():
         return self.parse_list
 
     def load(self, content):
+        """初始化
+
+        Args:
+            content (string): 课表原始数据
+        """
         self.raw = content
         self._parse()
 
     def _parse(self):
         """解析课表
             姓名、班级、课程、时间、地点、校区、节数、周数等详细信息
-        Args:
-            content ([type]): [description]
         """
         user_message: dict = self.raw.get("xsxx")
         schedule_list: list = self.raw.get("kbList")
@@ -74,6 +77,20 @@ class ScheduleParse():
         self.parse_dict.setdefault("course_list", self.parse_list)
 
     def get_class_time(self, b2e:str):
+        """获取课程的开始和结束的上课时间
+            如某课程为早上一二节(1-2), 则开始时间为第一节的时间, 结束时间为第二节课的上课时间。
+            注意：是开始和结束的`上课时间`
+            e.g: 第一二节为8.30-9.15, 中间休息5分钟, 9.20-10.05
+                    返回: {
+                        'start': [8, 30],
+                        'last': [9, 20]
+                    }
+        Args:
+            b2e (str): 原始范围字符串, 如`1-2`
+
+        Returns:
+            [type]: 课程开始和课程结束的时间
+        """
         start, end = b2e.split('-')
         start_time = self.__TIME_LIST[start]
         end_time = self.__TIME_LIST[end]

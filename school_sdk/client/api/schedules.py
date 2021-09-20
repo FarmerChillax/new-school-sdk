@@ -13,17 +13,25 @@ from school_sdk.client.api import BaseCrawler
 
 class Schedule(BaseCrawler):
 
+    schedule_year = None
+    schedule_term = {1: 3, 2: 12, 3: 16}
+
     def __init__(self, user_client) -> None:
+        """课表类
+
+        Args:
+            user_client (UserClient): 已登录用户实例
+        """
         super().__init__(school=user_client.school, session=user_client._http)
         self.user_client = user_client
         self.raw_schedule = None
         self.schedule = None
-        self.schedule_parse:ScheduleParse = ScheduleParse()
-    
+        self.schedule_parse: ScheduleParse = ScheduleParse()
+
     @property
     def account(self):
         return self.user_client.account
-    
+
     def refresh_schedule(self):
         """刷新课表数据
         """
@@ -38,15 +46,18 @@ class Schedule(BaseCrawler):
             dict: 解析后的课表数据
         """
         if not self.is_load_schedule():
-            self.load_schedule()
+            self.load_schedule(**kwargs)
         return self.schedule_parse.get_dict()
 
     def get_schedule_list(self, **kwargs):
+        """获取解析后的课表列表
+            仅课表列表
+        Returns:
+            list: 仅课表列表
+        """
         if not self.is_load_schedule():
             self.load_schedule()
         return self.schedule_parse.get_list()
-        # schedule = ScheduleParse(self.raw_schedule).get_dict()
-        return schedule
 
     def get_raw_schedule(self, **kwargs):
         """获取元素课表数据
@@ -62,32 +73,28 @@ class Schedule(BaseCrawler):
         """解析成ics日历格式
         """
         pass
-    
+
     def is_load_schedule(self):
         return False if self.raw_schedule is None else True
 
     def load_schedule(self, **kwargs):
         """加载课表
         """
-        self.raw_schedule = self._get_student_schedule()
+        self.raw_schedule = self._get_student_schedule(**kwargs)
         self.schedule_parse.load(self.raw_schedule)
 
-    def _get_student_schedule(self): 
+    def _get_student_schedule(self, year, term, **kwargs):
         params = {
             "gnmkdm": "N2151",
             "su": self.account
         }
 
         data = {
-            "xnm": 2021,
-            "xqm": 3,
+            "xnm": year,
+            "xqm": term,
             "kzlx": "ck"
         }
         url = self.school.config['url_endpoints']['SCHEDULE']['API']
 
-        res = self.post(url=url, params=params, data=data)
+        res = self.post(url=url, params=params, data=data, **kwargs)
         return res.json()
-
-
-
-

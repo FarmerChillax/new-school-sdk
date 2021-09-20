@@ -8,12 +8,10 @@
 
 from school_sdk.config import URL_ENDPOINT
 from school_sdk.client.api.schedules import Schedule
-from school_sdk.client.api import login
 from school_sdk.client.exceptions import LoginException
 import time
 from school_sdk.client.api.login import ZFLogin
 from school_sdk.client.base import BaseSchoolClient
-from school_sdk.utils import ObjectDict
 
 
 class SchoolClient():
@@ -95,7 +93,7 @@ class UserClient(BaseSchoolClient):
         if self.schedule is None:
             self.schedule = Schedule(self)
 
-    def get_schedule(self):
+    def get_schedule(self, **kwargs):
         if self.schedule is None:
             self.schedule = Schedule(self)
-        return self.schedule.get_schedule_dict()
+        return self.schedule.get_schedule_dict(**kwargs)
