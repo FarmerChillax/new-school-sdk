@@ -28,7 +28,8 @@ print(cours)
 | Api          | Description | Argument          |
 | :----------- | :---------- | :---------------- |
 | user_login   | 登陆函数    | account, password |
-| get_schedule | 课表查询    | None              |
+| get_schedule | 课表查询    | year, term        |
+| get_score    | 成绩查询    | year, term        |
 
 
 

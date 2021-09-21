@@ -17,5 +17,8 @@ user:UserClient = Gdust.user_login("account", "password")
 
 # 获取课表
 course = user.get_schedule(year=2021, term=1)
-
 print(course)
+
+# 获取成绩, 2020-2021学年第一学期的成绩
+score = user.get_score(year=2020, term=1)
+print(score)
