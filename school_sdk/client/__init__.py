@@ -102,4 +102,4 @@ class UserClient(BaseSchoolClient):
     def get_score(self, **kwargs):
         if self.score is None:
             self.score = Score(self)
-        return self.score.get_score()
+        return self.score.get_score(**kwargs)

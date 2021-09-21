@@ -13,8 +13,6 @@ from school_sdk.client.api import BaseCrawler
 
 class Schedule(BaseCrawler):
 
-    schedule_term = {1: 3, 2: 12, 3: 16}
-
     def __init__(self, user_client) -> None:
         """课表类
 
@@ -22,7 +20,6 @@ class Schedule(BaseCrawler):
             user_client (UserClient): 已登录用户实例
         """
         super().__init__(user_client=user_client)
-        # self.user_client = user_client
         self.raw_schedule = None
         self.schedule = None
         self.schedule_parse: ScheduleParse = ScheduleParse()
@@ -86,7 +83,7 @@ class Schedule(BaseCrawler):
 
         data = {
             "xnm": year,
-            "xqm": self.schedule_term.get(term, 1),
+            "xqm": self.TERM.get(term, 1),
             "kzlx": "ck"
         }
         url = self.school.config['url_endpoints']['SCHEDULE']['API']

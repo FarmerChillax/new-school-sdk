@@ -15,7 +15,7 @@ import time
 class BaseCrawler():
 
     BASE_URL = ''
-
+    TERM = {1: 3, 2: 12, 3: 16}
     def __init__(self, user_client) -> None:
         self.user_client = user_client
         self.school = user_client.school or None
