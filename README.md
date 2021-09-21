@@ -6,6 +6,10 @@
 [![pypi](https://img.shields.io/pypi/v/school-api.svg)](https://pypi.org/project/school-api/)
 [![Downloads](https://pepy.tech/badge/school-sdk)](https://pepy.tech/project/school-api) -->
 
+
+[![Downloads](https://pepy.tech/badge/school-sdk)](https://pepy.tech/project/school-sdk)
+
+
 ## Usage
 ```Shell
 $ pip install school-sdk
