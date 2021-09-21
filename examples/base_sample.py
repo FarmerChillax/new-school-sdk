@@ -16,6 +16,6 @@ Gdust = SchoolClient("172.16.254.1")
 user:UserClient = Gdust.user_login("account", "password")
 
 # 获取课表
-cours = user.get_schedule(year=2021, term=1)
+course = user.get_schedule(year=2021, term=1)
 
-print(cours)
+print(course)

@@ -6,4 +6,4 @@
     :date: 2021/09/02 19:18:47
 '''
 
-from .client import SchoolClient
+from .client import SchoolClient, UserClient
