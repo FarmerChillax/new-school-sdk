@@ -23,8 +23,8 @@ from school_sdk import SchoolClient
 # 先实例化一个学校，再实例化用户
 school = SchoolClient("172.16.254.1", exist_verify=True)
 user:UserClient = school.user_login("2018xxxxx", "xxxxxxxx")
-cours = user.get_schedule()
-print(cours)
+course = user.get_schedule()
+print(course)
 ```
 
 ## Api Function
