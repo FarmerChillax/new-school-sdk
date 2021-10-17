@@ -1,4 +1,4 @@
-正方系统 Python SDK。
+正方系统 Python SDK。(如果觉得还不错,点个给个小星星趴~⭐)
 
 <!-- [![Build Status](https://travis-ci.org/dairoot/school-api.svg?branch=master)](https://travis-ci.org/dairoot/school-api)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dairoot/school-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dairoot/school-api/?branch=master)
