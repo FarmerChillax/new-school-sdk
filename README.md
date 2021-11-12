@@ -1,4 +1,4 @@
-正方系统 Python SDK。(如果觉得还不错,给个小星星趴~⭐)
+新版正方系统 Python SDK。(如果觉得还不错,给个小星星趴~⭐)
 
 <!-- [![Build Status](https://travis-ci.org/dairoot/school-api.svg?branch=master)](https://travis-ci.org/dairoot/school-api)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dairoot/school-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dairoot/school-api/?branch=master)
@@ -43,7 +43,7 @@ print(course)
 | :------------ | :----------- | :-------------------- |
 | host          | 不存在默认值 | 教务系统地址(`必填`)  |
 | port          | 80           | 端口号                |
-| ssl           | http         | 教务系统是否使用https |
+| ssl           | False         | 教务系统是否使用https |
 | name          | None         | 学校名称              |
 | exist_verify  | False        | 是否存在验证码        |
 | lan_host      | None         | 内网地址              |
