@@ -29,11 +29,12 @@ print(course)
 
 ## Api Function
 
-| Api          | Description | Argument          |
-| :----------- | :---------- | :---------------- |
-| user_login   | 登陆函数    | account, password |
-| get_schedule | 课表查询    | year, term        |
-| get_score    | 成绩查询    | year, term        |
+| Api          | Description  | Argument          |
+| :----------- | :----------- | :---------------- |
+| user_login   | 登陆函数     | account, password |
+| get_schedule | 课表查询     | year, term        |
+| get_score    | 成绩查询     | year, term        |
+| get_info     | 获取个人信息 | None              |
 
 
 
@@ -43,7 +44,7 @@ print(course)
 | :------------ | :----------- | :-------------------- |
 | host          | 不存在默认值 | 教务系统地址(`必填`)  |
 | port          | 80           | 端口号                |
-| ssl           | False         | 教务系统是否使用https |
+| ssl           | False        | 教务系统是否使用https |
 | name          | None         | 学校名称              |
 | exist_verify  | False        | 是否存在验证码        |
 | lan_host      | None         | 内网地址              |

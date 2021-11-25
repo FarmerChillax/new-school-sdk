@@ -7,6 +7,7 @@
 '''
 
 from school_sdk.client.api.score import Score
+from school_sdk.client.api.user_info import Info
 from school_sdk.config import URL_ENDPOINT
 from school_sdk.client.api.schedules import Schedule
 from school_sdk.client.exceptions import LoginException
@@ -61,6 +62,8 @@ class SchoolClient():
 class UserClient(BaseSchoolClient):
     schedule:Schedule = None
     score: Score = None
+    info = None
+
     def __init__(self, school, account, password) -> None:
         """初始化用户类
         用户类继承自学校
@@ -103,3 +106,8 @@ class UserClient(BaseSchoolClient):
         if self.score is None:
             self.score = Score(self)
         return self.score.get_score(**kwargs)
+
+    def get_info(self, **kwargs):
+        if self.info is None:
+            self.info = Info(self)
+        return self.info.get_info(**kwargs)

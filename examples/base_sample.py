@@ -22,3 +22,7 @@ print(course)
 # 获取成绩, 2020-2021学年第一学期的成绩
 score = user.get_score(year=2020, term=1)
 print(score)
+
+# 获取个人信息
+info = user.get_info()
+print(info)

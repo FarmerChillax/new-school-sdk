@@ -52,7 +52,7 @@ class Schedule(BaseCrawler):
         return self.schedule_parse.get_list()
 
     def get_raw_schedule(self, **kwargs):
-        """获取元素课表数据
+        """获取原始课表数据
 
         Returns:
             [json]: 原始课表数据

@@ -14,20 +14,7 @@ class SchoolException(Exception):
         self.errmsg = errmsg
         self.school_code = school_code
 
-    # def __repr__(self):
-    #     _repr = 'school_code:{school_code}, Error message: {name}，{msg}'.format(
-    #         school_code=self.school_code,
-    #         name=self.name,
-    #         msg=self.errmsg
-    #     )
-    #     msg = to_binary(_repr) if six.PY2 else to_text(_repr)
-        # return msg
-
     def __str__(self):
-        # _repr = '{msg}'.format(
-        #     msg=self.errmsg
-        # )
-        # msg = to_binary(_repr) if six.PY2 else to_text(_repr)
         msg = f'{self.errmsg}'
         return msg
 
