@@ -10,7 +10,7 @@ import requests
 from fake_headers import Headers
 
 
-class BaseSchoolClient():
+class BaseUserClient():
     BASE_URL = ""
     _http = requests.Session()
 
