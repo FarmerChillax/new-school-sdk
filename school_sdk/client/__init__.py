@@ -6,6 +6,7 @@
     :date: 2021/09/02 22:20:52
 '''
 
+import requests
 from school_sdk.client.api.score import Score
 from school_sdk.client.api.user_info import Info
 from school_sdk.config import URL_ENDPOINT
@@ -13,14 +14,14 @@ from school_sdk.client.api.schedules import Schedule
 from school_sdk.client.exceptions import LoginException
 import time
 from school_sdk.client.api.login import ZFLogin
-from school_sdk.client.base import BaseSchoolClient
+from school_sdk.client.base import BaseUserClient
 
 
 class SchoolClient():
 
-    def __init__(self, host, port:int=80, ssl:bool=False, name=None, exist_verify:bool=False,
-                lan_host=None, lan_port=80, timeout=10,
-                login_url_path=None, url_endpoints=None) -> None:
+    def __init__(self, host, port: int = 80, ssl: bool = False, name=None, exist_verify: bool = False,
+                 lan_host=None, lan_port=80, timeout=10,
+                 login_url_path=None, url_endpoints=None) -> None:
         """初始化学校配置
 
         Args:
@@ -47,8 +48,8 @@ class SchoolClient():
 
         self.base_url = f'https://{host}:{port}' if ssl else f'http://{host}:{port}'
         self.config = school
-    
-    def user_login(self, account:str, password:str, **kwargs):
+
+    def user_login(self, account: str, password: str, **kwargs):
         """用户登录
 
         Args:
@@ -58,9 +59,13 @@ class SchoolClient():
         user = UserClient(self, account=account, password=password, **kwargs)
         return user.login()
 
+    def init_dev_user(self, cookies: str = None):
+        dev_user = UserClient(self, account="dev account", password="dev password")
+        return dev_user.get_dev_user(cookies)
 
-class UserClient(BaseSchoolClient):
-    schedule:Schedule = None
+
+class UserClient(BaseUserClient):
+    schedule: Schedule = None
     score: Score = None
     info = None
 
@@ -84,8 +89,8 @@ class UserClient(BaseSchoolClient):
         """用户登录，通过SchoolClient调用
         """
         user = ZFLogin(user_client=self)
-        user.get_raw_csrf_and_cookie()
-        user.get_rsa_publick_key()
+        # user.get_raw_csrf_and_cookie()
+        # user.get_rsa_publick_key()
         try:
             user.get_login()
             self._http = user._http
@@ -101,7 +106,7 @@ class UserClient(BaseSchoolClient):
         if self.schedule is None:
             self.schedule = Schedule(self)
         return self.schedule.get_schedule_dict(**kwargs)
-    
+
     def get_score(self, **kwargs):
         if self.score is None:
             self.score = Score(self)
@@ -111,3 +116,21 @@ class UserClient(BaseSchoolClient):
         if self.info is None:
             self.info = Info(self)
         return self.info.get_info(**kwargs)
+
+    def get_cookies(self):
+        return self._http.cookies
+
+    def set_cookies(self, cookies: str, **kwargs):
+        """设置user cookies
+
+        Args:
+            cookies (str): Cookies 字符串
+        """
+        cookies = cookies.strip()
+        key, value = cookies.split('=')
+        self._http.cookies.set(key, value)
+
+    def get_dev_user(self, cookies: str, **kwargs):
+        self._http = requests.Session()
+        self.set_cookies(cookies=cookies, **kwargs)
+        return self
