@@ -38,4 +38,5 @@ class ZFCaptchaDistinguish():
                     return x, y
     
     # def verify(self)
-    
+
+
