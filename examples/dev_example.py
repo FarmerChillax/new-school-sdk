@@ -5,14 +5,6 @@
     :url: https://blog.farmer233.top
     :date: 2022/01/06 20:34:12
 '''
-
-import sys
-import os
-
-cur_path = os.path.abspath(__file__)
-parent = os.path.dirname
-sys.path.append(parent(parent(cur_path)))
-
 from school_sdk import SchoolClient
 from school_sdk.client import UserClient
 
