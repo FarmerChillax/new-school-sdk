@@ -20,7 +20,7 @@ from school_sdk.client.base import BaseUserClient
 class SchoolClient():
 
     def __init__(self, host, port: int = 80, ssl: bool = False, name=None, exist_verify: bool = False,
-                 captcha_type: str = None, retry: int = 10, lan_host=None, lan_port=80, timeout=10,
+                 captcha_type: str = "captcha", retry: int = 10, lan_host=None, lan_port=80, timeout=10,
                  login_url_path=None, url_endpoints=None) -> None:
         """初始化学校配置
 
@@ -31,8 +31,8 @@ class SchoolClient():
             name (str, optional): 学校名称. Defaults to None.
 
             exist_verify (bool, optional): 是否有验证码. Defaults to False.
-            captcha_type (str, optional): 验证码类型. Defaults to None. 
-                        滑块传入cap开头, 图片传入kap开头 与教务系统的url地址对应.
+            captcha_type (str, optional): 验证码类型. Defaults to captcha. 
+                    滑块传入cap开头, 图片传入kap开头 与教务系统的url地址对应, 默认识别滑块验证码.
             retry (int, optional): 登录重试次数. Defaults to 10.
 
             lan_host (str, optional): 内网主机地址. Defaults to None.

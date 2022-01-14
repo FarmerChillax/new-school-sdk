@@ -18,7 +18,7 @@ with open(path.join(basedir, "README.md"), encoding='utf-8') as f:
 setup(
     name="school-sdk",
     author="farmer.chillax",
-    version="1.2.0",
+    version="1.3.0",
     license='MIT',
     author_email="farmer-chong@qq.com",
     description="zf School SDK for Python",
@@ -36,14 +36,16 @@ setup(
         'pyquery',
         'bs4',
         'Pillow',
-        'fake-headers'
+        'fake-headers',
+        'torch',
+        'torchvision',
     ],
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.8',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Software Development :: Libraries :: Python Modules'
     ]
