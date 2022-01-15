@@ -6,7 +6,7 @@
     :date: 2021/09/20 11:11:54
 '''
 
-from os import name, path
+from os import path
 from setuptools import setup, find_packages
 
 basedir = path.abspath(path.dirname(__file__))
@@ -18,7 +18,7 @@ with open(path.join(basedir, "README.md"), encoding='utf-8') as f:
 setup(
     name="zf-school-sdk",
     author="farmer.chillax",
-    version="1.3.1",
+    version="1.3.2",
     license='MIT',
     author_email="farmer-chong@qq.com",
     description="zf School SDK for Python",
