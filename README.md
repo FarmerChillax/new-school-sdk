@@ -9,8 +9,9 @@
 
 [![Downloads](https://pepy.tech/badge/school-sdk)](https://pepy.tech/project/school-sdk)
 
-## 依赖
-- Python >= 3.8 
+## 测试环境
+- Python == 3.8 
+- 默认验证码识别方式: CPU
 
 ## Usage
 ```Shell
