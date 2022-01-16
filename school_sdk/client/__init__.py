@@ -97,27 +97,27 @@ class UserClient(BaseUserClient):
         """用户登录，通过SchoolClient调用
         """
         user = ZFLogin(user_client=self)
-        # user.get_raw_csrf_and_cookie()
-        # user.get_rsa_publick_key()
-        try:
-            user.get_login()
-            self._http = user._http
-            return self
-        except LoginException as login_err:
-            print(login_err)
+        user.get_login()
+        self._http = user._http
+        return self
+
 
     def init_schedule(self):
         if self.schedule is None:
             self.schedule = Schedule(self)
 
-    def get_schedule(self, **kwargs):
+    def get_schedule(self, year:int, term:int = 1, **kwargs):
         """获取课表"""
+        kwargs.setdefault("year", year)
+        kwargs.setdefault("term", term)
         if self.schedule is None:
             self.schedule = Schedule(self)
         return self.schedule.get_schedule_dict(**kwargs)
 
-    def get_score(self, **kwargs):
+    def get_score(self, year:int, term:int = 1, **kwargs):
         """获取成绩"""
+        kwargs.setdefault("year", year)
+        kwargs.setdefault("term", term)
         if self.score is None:
             self.score = Score(self)
         return self.score.get_score(**kwargs)

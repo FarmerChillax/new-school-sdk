@@ -30,31 +30,33 @@ class ZFLogin(BaseCrawler):
         Raises:
             LoginException: 登录失败提示
         """
-        self.get_raw_csrf_and_cookie()
-        self.get_rsa_publick_key()
+        self.get_raw_csrf_and_cookie() # 获取csrf与cookie
+        self.get_rsa_publick_key() # 获取rsa公钥
         if self.school.config['exist_verify']:
-            captcha_type:str = self.school.config['captcha_type']
-            retry:int = self.school.config["retry"]
-            if captcha_type.startswith("cap"):
+            # 处理验证码
+            if self.captcha_type.startswith("cap"):
                 # 滑块验证码
-                for _ in range(retry):
+                for _ in range(self.retry):
                     if self.verification_captcha():
                         break
                 if not self._post_login():
-                    raise LoginException("xxx", "登录失败")
+                    raise LoginException("xxx", "滑块登录失败")
                 return True
-            if captcha_type.startswith('kap'):
+            if self.captcha_type.startswith('kap'):
                 # 图形识别验证码
-                # 尝试3次登录
-                for i in range(retry):
+                for i in range(self.retry):
                     verify_code = self.verification_kaptcha()
                     # print(f'第{i}次验证, 识别结果: {verify_code}')
                     is_login = self._kaptcha_login(verify_code=verify_code)
                     if is_login:
                         return is_login
-                raise LoginException("xxx", "登录失败")
+                raise LoginException("xxx", "验证码登录失败")
 
-    
+            # 没有验证码登录
+            if not self._post_login():
+                raise LoginException("xxx", "登录失败")
+            return True
+
     def __init__(self, user_client) -> None:
         super().__init__(user_client)
         self.password = self.user_client.password
@@ -62,6 +64,8 @@ class ZFLogin(BaseCrawler):
         self._b64 = Base64()
         self._image = None
         self.path = self.school.config["url_endpoints"]['LOGIN']
+        self.captcha_type:str = self.school.config['captcha_type']
+        self.retry:int = self.school.config["retry"]
 
     def get_raw_csrf_and_cookie(self):
         """获取CSRF令牌
@@ -81,7 +85,6 @@ class ZFLogin(BaseCrawler):
         url = self.path["PUBLIC_KEY"]
         params = {"time": self.t, "_": self.t}
         headers = self.generate_headers()
-        # headers.setdefault("X-Requested-With", "XMLHttpRequest")
         res = self.get(url=url, params=params, headers=headers)
         result_json = res.json()
         return result_json.get("modulus"), result_json.get('exponent')
