@@ -59,7 +59,10 @@ print(course)
 | timeout       | 10           | 全局请求延时             |
 | url_endpoints | None         | 地址配置                 |
 
+## 相关项目
 
+- 新版正方教务系统: https://github.com/Farmer-chong/new-school-sdk
+- 旧版正方教务系统: https://github.com/dairoot/school-api
 
 <!-- | <!--            | url_path_list | `略`                    | 学校接口地址列表 |
 | class_time_list | `略`          | 上课时间列表            |
