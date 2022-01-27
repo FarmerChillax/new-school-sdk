@@ -183,7 +183,15 @@ class ZFLogin(BaseCrawler):
         """
         re_str = f'value="{self.account}"'
         result = re.search(re_str, html)
-        return True if result else False
+        if result:
+            return True
+        # 错误流程
+        doc = pq(html)
+        err_msg = doc('#tips').text()
+        if '验证码' in err_msg:
+            return False
+        raise LoginException(400, err_msg)
+
 
     def _get_captcha_image(self):
         """获取验证码

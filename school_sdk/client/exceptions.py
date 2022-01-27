@@ -21,7 +21,7 @@ class SchoolException(Exception):
 class LoginException(SchoolException):
 
     def __init__(self, school_code, errmsg):
-        super(LoginException, self).__init__('登录接口', school_code, errmsg)
+        super(LoginException, self).__init__('登录错误', school_code, errmsg)
 
 
 class RTKException(ValueError):

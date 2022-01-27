@@ -35,3 +35,4 @@ def is_endpoint(url_or_endpoint:str) -> bool:
     if url_or_endpoint.startswith(('http://', 'https://')):
         return False
     return True
+
