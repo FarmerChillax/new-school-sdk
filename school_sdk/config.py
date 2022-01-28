@@ -10,6 +10,7 @@ URL_ENDPOINT = {
     'LOGIN': {
         'INDEX': '/xtgl/login_slogin.html',
         'CAPTCHA': '/zfcaptchaLogin',
+        'KCAPTCHA': '/kaptcha',
         'PUBLIC_KEY': '/xtgl/login_getPublicKey.html',
     },
     "SCORE_URL": "",

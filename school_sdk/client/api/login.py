@@ -5,6 +5,7 @@
     :url: https://blog.farmer233.top
     :date: 2021/09/02 22:12:00
 '''
+from school_sdk.check_code.type import kaptcha_func, captcha_func
 from school_sdk.client.exceptions import LoginException, RTKException
 from school_sdk.check_code import ZFCaptchaDistinguish
 from school_sdk.client.api import BaseCrawler
@@ -29,15 +30,33 @@ class ZFLogin(BaseCrawler):
         Raises:
             LoginException: 登录失败提示
         """
-        self.get_raw_csrf_and_cookie()
-        self.get_rsa_publick_key()
+        self.get_raw_csrf_and_cookie() # 获取csrf与cookie
+        self.get_rsa_publick_key() # 获取rsa公钥
         if self.school.config['exist_verify']:
-            for _ in range(3):
-                if self.verification_captcha():
-                    break
-        if not self._post_login():
-            raise LoginException("xxx", "登录失败")
-    
+            # 处理验证码
+            if self.captcha_type.startswith("cap"):
+                # 滑块验证码
+                for _ in range(self.retry):
+                    if self.verification_captcha():
+                        break
+                if not self._post_login():
+                    raise LoginException("xxx", "滑块登录失败")
+                return True
+            if self.captcha_type.startswith('kap'):
+                # 图形识别验证码
+                for i in range(self.retry):
+                    verify_code = self.verification_kaptcha()
+                    # print(f'第{i}次验证, 识别结果: {verify_code}')
+                    is_login = self._kaptcha_login(verify_code=verify_code)
+                    if is_login:
+                        return is_login
+                raise LoginException("xxx", "验证码登录失败")
+
+            # 没有验证码登录
+            if not self._post_login():
+                raise LoginException("xxx", "登录失败")
+            return True
+
     def __init__(self, user_client) -> None:
         super().__init__(user_client)
         self.password = self.user_client.password
@@ -45,6 +64,8 @@ class ZFLogin(BaseCrawler):
         self._b64 = Base64()
         self._image = None
         self.path = self.school.config["url_endpoints"]['LOGIN']
+        self.captcha_type:str = self.school.config['captcha_type']
+        self.retry:int = self.school.config["retry"]
 
     def get_raw_csrf_and_cookie(self):
         """获取CSRF令牌
@@ -64,7 +85,6 @@ class ZFLogin(BaseCrawler):
         url = self.path["PUBLIC_KEY"]
         params = {"time": self.t, "_": self.t}
         headers = self.generate_headers()
-        # headers.setdefault("X-Requested-With", "XMLHttpRequest")
         res = self.get(url=url, params=params, headers=headers)
         result_json = res.json()
         return result_json.get("modulus"), result_json.get('exponent')
@@ -77,7 +97,7 @@ class ZFLogin(BaseCrawler):
         """
         rtk = self._get_rtk()
         self._image = self._get_captcha_image()
-        cap = ZFCaptchaDistinguish(self._image)
+        cap = ZFCaptchaDistinguish(self._image, captcha_func)
         x, y = cap.verify()
         track = self._get_track(x, y)
         captcha_verify_result = json.dumps(track).encode('utf-8')
@@ -94,6 +114,43 @@ class ZFLogin(BaseCrawler):
         if res.status_code == 200 and res.json().get("status") == "success":
             return True
         return False
+
+    def verification_kaptcha(self) -> str:
+        """图形验证码识别"""
+        # 下载验证码
+        self._image = self._get_kaptcha()
+        cap = ZFCaptchaDistinguish(self._image, kaptcha_func)
+        return cap.verify()
+
+    def _get_kaptcha(self) -> bytes:
+        params = {"time": self.t}
+        url = self.path['KCAPTCHA']
+        res = self.get(url, params=params)
+        if res.status_code == 200:
+            return res.content
+    
+
+    def _kaptcha_login(self, verify_code:str) -> bool:
+        """发送登录请求
+
+        Returns:
+            bool: 是否登录成功
+        """
+        rsa_key = RsaKey()
+        m, e = self.get_rsa_publick_key()
+        rsa_key.set_public(self._b64.b64tohex(m), self._b64.b64tohex(e))
+        rr = rsa_key.rsa_encrypt(self.password)
+        data = {
+            'csrftoken': self._csrf,
+            'language': 'zh_CN',
+            'yhm': self.account,
+            'mm': self._b64.hex2b64(rr),
+            'yzm': verify_code
+        }
+        params = {"time": self.t}
+        url =  self.path['INDEX']
+        res = self.post(url, params=params, data=data)
+        return self._is_login(res.text)
 
     def _post_login(self) -> bool:
         """发送登录请求
