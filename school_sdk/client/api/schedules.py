@@ -12,7 +12,8 @@ from school_sdk.client.api import BaseCrawler
 
 
 class Schedule(BaseCrawler):
-
+    year = None
+    term = None
     def __init__(self, user_client) -> None:
         """课表类
 
@@ -38,6 +39,8 @@ class Schedule(BaseCrawler):
             dict: 解析后的课表数据
         """
         if not self.is_load_schedule():
+            self.load_schedule(**kwargs)
+        if kwargs.get("year") != self.year or kwargs.get("term") != self.term:
             self.load_schedule(**kwargs)
         return self.schedule_parse.get_dict()
 
@@ -76,6 +79,8 @@ class Schedule(BaseCrawler):
         self.schedule_parse.load(self.raw_schedule)
 
     def _get_student_schedule(self, year, term, **kwargs):
+        self.year = year
+        self.term = term
         params = {
             "gnmkdm": "N2151",
             "su": self.account

@@ -48,6 +48,10 @@ class ScheduleParse():
         """解析课表
             姓名、班级、课程、时间、地点、校区、节数、周数等详细信息
         """
+        self.parse_list:list = []
+        self.parse_dict:dict = {}
+        self.parse_ics = None
+        
         user_message: dict = self.raw.get("xsxx")
         schedule_list: list = self.raw.get("kbList")
         # 用户基本信息
