@@ -9,6 +9,7 @@ from typing import Dict, Union
 import requests
 from school_sdk.client.api.score import Score
 from school_sdk.client.api.user_info import Info
+from school_sdk.client.utils import user_is_login
 from school_sdk.config import URL_ENDPOINT
 from school_sdk.client.api.schedules import Schedule
 from school_sdk.client.exceptions import LoginException
@@ -77,7 +78,7 @@ class UserClient(BaseUserClient):
     score: Score = None
     info = None
 
-    def __init__(self, school, account, password) -> None:
+    def __init__(self, school:SchoolClient, account, password) -> None:
         """初始化用户类
         用户类继承自学校
 
@@ -88,9 +89,9 @@ class UserClient(BaseUserClient):
         """
         self.account = account
         self.password = password
-        self.school = school
+        self.school:SchoolClient = school
         self._csrf = None
-        self.t = int(time.time())
+        self.t = int(time.time() * 1000)
         self._image = None
 
     def login(self):
@@ -132,6 +133,13 @@ class UserClient(BaseUserClient):
         self.info = None
         return self.get_info(**kwargs)
 
+    def check_session(self):
+        url = self.school.config.get("url_endpoints")["HOME_URL"]
+        resp = self.get(url)
+        print(resp.text, resp.status_code)
+        print(user_is_login(self.account, resp.text))
+        pass
+    
     # dev options
     def get_cookies(self):
         return self._http.cookies

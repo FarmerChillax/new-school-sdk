@@ -9,6 +9,7 @@
 
 from school_sdk.client.api.schedule_parse import ScheduleParse
 from school_sdk.client.api import BaseCrawler
+from school_sdk.client.utils import user_is_login
 
 
 class Schedule(BaseCrawler):
@@ -94,4 +95,5 @@ class Schedule(BaseCrawler):
         url = self.school.config['url_endpoints']['SCHEDULE']['API']
 
         res = self.post(url=url, params=params, data=data, **kwargs)
-        return res.json()
+        if user_is_login(self.account, res.text):
+            return res.json()

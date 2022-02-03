@@ -8,9 +8,13 @@
 
 # from school_sdk.client.api.login_manage import LoginManagement
 # from school_sdk.client.settings import HOST
+import re
 import requests
 from fake_headers import Headers
 import time
+from pyquery import PyQuery as pq
+from school_sdk.client.exceptions import LoginException
+
 
 class BaseCrawler():
 
@@ -47,3 +51,15 @@ class BaseCrawler():
 
     def update_headers(self, headers: dict):
         self._client.headers.update(headers)
+
+    def is_login(self, html:str):
+        re_str = f'value="{self.account}"'
+        result = re.search(re_str, html)
+        if result:
+            return True
+        doc = pq(html)
+        err_msg = doc('#tips').text()
+        print(err_msg)
+        if '验证码' in err_msg:
+            return False
+        raise LoginException(400, err_msg)
