@@ -128,6 +128,10 @@ class UserClient(BaseUserClient):
             self.info = Info(self)
         return self.info.get_info(**kwargs)
 
+    def refresh_info(self, **kwargs):
+        self.info = None
+        return self.get_info(**kwargs)
+
     # dev options
     def get_cookies(self):
         return self._http.cookies
