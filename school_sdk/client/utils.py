@@ -27,9 +27,11 @@ def user_is_login(account, html) -> bool:
     result = re.search(re_str, html)
     if result:
         return True
-    # 错误流程
     doc = pq(html)
     err_msg = doc('#tips').text()
+    if err_msg == "":
+        return True
+    # 错误流程
     if '验证码' in err_msg:
         return False
     raise LoginException(400, err_msg)

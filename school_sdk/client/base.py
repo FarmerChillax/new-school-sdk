@@ -31,7 +31,6 @@ class BaseUserClient():
             url = f'{self.BASE_URL}{url_or_endpoint}'
         else:
             url = url_or_endpoint
-        
         res = self._http.request(
             method=method,
             url = url,

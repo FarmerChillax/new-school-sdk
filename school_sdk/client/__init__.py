@@ -78,7 +78,7 @@ class UserClient(BaseUserClient):
     score: Score = None
     info = None
 
-    def __init__(self, school:SchoolClient, account, password) -> None:
+    def __init__(self, school: SchoolClient, account, password) -> None:
         """初始化用户类
         用户类继承自学校
 
@@ -87,9 +87,10 @@ class UserClient(BaseUserClient):
             account (str): 账号
             password (str): 密码
         """
+        self.BASE_URL = school.base_url
         self.account = account
         self.password = password
-        self.school:SchoolClient = school
+        self.school: SchoolClient = school
         self._csrf = None
         self.t = int(time.time() * 1000)
         self._image = None
@@ -102,12 +103,11 @@ class UserClient(BaseUserClient):
         self._http = user._http
         return self
 
-
     def init_schedule(self):
         if self.schedule is None:
             self.schedule = Schedule(self)
 
-    def get_schedule(self, year:int, term:int = 1, **kwargs):
+    def get_schedule(self, year: int, term: int = 1, **kwargs):
         """获取课表"""
         kwargs.setdefault("year", year)
         kwargs.setdefault("term", term)
@@ -115,7 +115,7 @@ class UserClient(BaseUserClient):
             self.schedule = Schedule(self)
         return self.schedule.get_schedule_dict(**kwargs)
 
-    def get_score(self, year:int, term:int = 1, **kwargs):
+    def get_score(self, year: int, term: int = 1, **kwargs):
         """获取成绩"""
         kwargs.setdefault("year", year)
         kwargs.setdefault("term", term)
@@ -136,10 +136,16 @@ class UserClient(BaseUserClient):
     def check_session(self):
         url = self.school.config.get("url_endpoints")["HOME_URL"]
         resp = self.get(url)
-        print(resp.text, resp.status_code)
-        print(user_is_login(self.account, resp.text))
-        pass
-    
+        try:
+            if not user_is_login(self.account, resp.text):
+                # 重新登录
+                new_user = ZFLogin(user_client=self)
+                new_user.get_login()
+                self._http = new_user._http
+        except LoginException as le:
+            raise LoginException(400, f"重新登录出错: 账号{self.account}的 session 已过期, 重新登录失败")
+        return True
+
     # dev options
     def get_cookies(self):
         return self._http.cookies
