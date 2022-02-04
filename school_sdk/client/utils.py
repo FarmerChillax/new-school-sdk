@@ -30,8 +30,9 @@ def user_is_login(account, html) -> bool:
     doc = pq(html)
     err_msg = doc('#tips').text()
     if err_msg == "":
-        return True
+        return False
     # 错误流程
     if '验证码' in err_msg:
         return False
     raise LoginException(400, err_msg)
+

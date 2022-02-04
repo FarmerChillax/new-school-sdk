@@ -133,7 +133,7 @@ class UserClient(BaseUserClient):
         self.info = None
         return self.get_info(**kwargs)
 
-    def check_session(self):
+    def check_session(self) -> bool:
         url = self.school.config.get("url_endpoints")["HOME_URL"]
         resp = self.get(url)
         try:
@@ -143,7 +143,8 @@ class UserClient(BaseUserClient):
                 new_user.get_login()
                 self._http = new_user._http
         except LoginException as le:
-            raise LoginException(400, f"重新登录出错: 账号{self.account}的 session 已过期, 重新登录失败")
+            raise LoginException(
+                400, f"重新登录出错: 账号{self.account}的 session 已过期, 重新登录失败")
         return True
 
     # dev options
