@@ -134,17 +134,19 @@ class UserClient(BaseUserClient):
         return self.get_info(**kwargs)
 
     def check_session(self) -> bool:
-        url = self.school.config.get("url_endpoints")["HOME_URL"]
+        url = self.school.config.get("url_endpoints")["INDEX_URL"]
         resp = self.get(url)
         try:
             if not user_is_login(self.account, resp.text):
                 # 重新登录
+                # print('开始重新登陆')
                 new_user = ZFLogin(user_client=self)
                 new_user.get_login()
                 self._http = new_user._http
         except LoginException as le:
+            # print(le)
             raise LoginException(
-                400, f"重新登录出错: 账号{self.account}的 session 已过期, 重新登录失败")
+                400, f"重新登录出错: 账号{self.account}的 session 已过期, 重新登录失败: {str(le)}")
         return True
 
     # dev options
