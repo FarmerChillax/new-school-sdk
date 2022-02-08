@@ -12,9 +12,10 @@ from fake_headers import Headers
 
 class BaseUserClient():
     BASE_URL = ""
-    _http = requests.Session()
+    _http = None
 
     def __init__(self) -> None:
+        self._http = requests.Session()
         self._http.headers.update({
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) '
                           'AppleWebKit/537.36 (KHTML, like Gecko) '
