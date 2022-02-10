@@ -96,7 +96,7 @@ class Schedule(BaseCrawler):
         url = self.school.config['url_endpoints']['SCHEDULE']['API']
 
         res = self.post(url=url, params=params, data=data, **kwargs)
-        print(res.text, res, res.status_code)
+        # print(res.text, res, res.status_code)
         if user_is_login(self.account, res.text):
             return res.json()
         raise LoginException()
