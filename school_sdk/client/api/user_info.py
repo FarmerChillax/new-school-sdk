@@ -53,6 +53,8 @@ class Info(BaseCrawler):
             'class_name': doc('#col_bh_id > p').text(),
             'grade': doc('#col_njdm_id > p').text(),
             'graduation_school': doc('#col_byzx > p').text(),
+            'major': doc('#col_zyfx_id > p').text(),
+            'gender': doc('#col_xbm > p').text()
         }
         
         return info
