@@ -65,6 +65,8 @@ print(course)
 
 - 新版正方教务系统: https://github.com/Farmer-chong/new-school-sdk
 - 旧版正方教务系统: https://github.com/dairoot/school-api
+- SDK的Flask扩展: https://github.com/Farmer-chong/flask-school
+
 
 <!-- | <!--            | url_path_list | `略`                    | 学校接口地址列表 |
 | class_time_list | `略`          | 上课时间列表            |
