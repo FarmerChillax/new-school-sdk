@@ -116,7 +116,8 @@ class Score(BaseCrawler):
                 'exam_result': item.get('cj'),
                 'credit': item.get('xf'),
                 'course_group': item.get('kkbmmc'),
-                'grade': item.get('njdm_id')
+                'grade': item.get('njdm_id'),
+                'grade_point': item.get('jd')
             }
             self.score_list.append(format_item)
             self.score_dict.setdefault(item.get('kcmc'), format_item)
