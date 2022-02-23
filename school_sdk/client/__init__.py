@@ -7,6 +7,7 @@
 '''
 from typing import Dict, Union
 import requests
+from school_sdk.client.api.class_schedule import ScheduleClass
 from school_sdk.client.api.score import Score
 from school_sdk.client.api.user_info import Info
 from school_sdk.client.utils import user_is_login
@@ -77,6 +78,7 @@ class UserClient(BaseUserClient):
     schedule: Schedule = None
     score: Score = None
     info = None
+    schedule_class: ScheduleClass = None
 
     def __init__(self, school: SchoolClient, account, password) -> None:
         """初始化用户类
@@ -114,6 +116,11 @@ class UserClient(BaseUserClient):
         if self.schedule is None:
             self.schedule = Schedule(self)
         return self.schedule.get_schedule_dict(**kwargs)
+
+    def get_class_schedule(self, year: int, term:int = 1, **kwargs):
+        self.schedule_class = ScheduleClass(self)
+        self.schedule_class._get_raw(year=2021, term=1, **kwargs)
+        return "dev"
 
     def get_score(self, year: int, term: int = 1, **kwargs):
         """获取成绩"""

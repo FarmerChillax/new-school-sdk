@@ -22,7 +22,11 @@ URL_ENDPOINT = {
     "SCHEDULE": {
         "API": '/kbcx/xskbcx_cxXsKb.html',
     },
+    "CLASS_SCHEDULE": {
+        "API": '/kbdy/bjkbdy_cxBjKb.html'
+    },
     'SCORE': {
+        # cjcx_cxXsgrcj
         'API': '/cjcx/cjcx_cxDgXscj.html'
     },
     'INFO': {
