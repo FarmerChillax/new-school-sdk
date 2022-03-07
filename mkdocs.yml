@@ -1,0 +1,6 @@
+site_name: My Docs
+theme:
+  name: material
+
+repo_url: https://github.com/Farmer-chong/new-school-sdk
+repo_name: Farmer/new-school-sdk
