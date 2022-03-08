@@ -1,4 +1,4 @@
-# user_login接口
+# 用户登录
 
 | 字段       | 默认值  | 类型     | 描述   |
 | -------- | ---- | ------ | ---- |
@@ -6,8 +6,7 @@
 | password | None | String | 用户密码 |
 
 ## 示例
-```py
-
+```python
 from school_sdk.client import UserClient
 from school_sdk import SchoolClient
 
