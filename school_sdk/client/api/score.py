@@ -11,7 +11,8 @@ from school_sdk.client.api import BaseCrawler
 
 
 class Score(BaseCrawler):
-
+    year = None
+    term = None
     def __init__(self, user_client) -> None:
         super().__init__(user_client)
         self.endpoints: dict = self.school.config['url_endpoints']
@@ -40,6 +41,9 @@ class Score(BaseCrawler):
         """
         if not self.score_dict:
             self.parse(**kwargs)
+        if kwargs.get('year') != self.year or kwargs.get('term') != self.term:
+            self.raw_score = None
+            self.parse(**kwargs)
         return self.score_dict
 
     def parse(self, **kwargs):
@@ -64,6 +68,8 @@ class Score(BaseCrawler):
         Returns:
             json: json数据
         """
+        self.year = year
+        self.term = term
         url = self.endpoints['SCORE']['API']
 
         params = {
@@ -96,6 +102,8 @@ class Score(BaseCrawler):
         Args:
             raw (dict): 教务系统的原始数据
         """
+        self.score_dict:dict = {}
+        self.score_list:list = []
         items = raw.get('items')
         for item in items:
             format_item = {
@@ -108,7 +116,8 @@ class Score(BaseCrawler):
                 'exam_result': item.get('cj'),
                 'credit': item.get('xf'),
                 'course_group': item.get('kkbmmc'),
-                'grade': item.get('njdm_id')
+                'grade': item.get('njdm_id'),
+                'grade_point': item.get('jd')
             }
             self.score_list.append(format_item)
             self.score_dict.setdefault(item.get('kcmc'), format_item)

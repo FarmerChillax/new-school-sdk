@@ -44,10 +44,26 @@ class ScheduleParse():
         self.raw = content
         self._parse()
 
+    def _get_color(self, index):
+        t = ['green', 'blue', 'purple', 'red', 'yellow']
+        return t[index]
+
+    def get_color(self, compare_target, compare_list):
+        for item in compare_list:
+            if compare_target.get('kcmc') == item.get("course") and compare_target.get('kcmc') != None:
+                return item.get('color')
+        # 随机返回颜色
+        time = compare_target.get('jcs').split('-')
+        return self._get_color((int(compare_target.get('xqj')) * 3 + int(time[0]) + 1) % 5)
+
     def _parse(self):
         """解析课表
             姓名、班级、课程、时间、地点、校区、节数、周数等详细信息
         """
+        self.parse_list:list = []
+        self.parse_dict:dict = {}
+        self.parse_ics = None
+        
         user_message: dict = self.raw.get("xsxx")
         schedule_list: list = self.raw.get("kbList")
         # 用户基本信息
@@ -58,7 +74,8 @@ class ScheduleParse():
         for course in schedule_list:
             weeks_arr = self.get_course_week(course.get('zcd'))
             time_text = f"{course.get('xqjmc')} {course.get('jc')}"
-
+            time = self.get_class_time(course.get('jcs'))
+            color = self.get_color(course, self.parse_list)
             self.parse_list.append({
                 "course": course.get('kcmc', "找不到课程名"),
                 "place": course.get('cdmc', "找不到上课地点"),
@@ -69,7 +86,9 @@ class ScheduleParse():
                 "week_day_text": course.get('xqjmc'),
                 "time_text": time_text,
                 "weeks_arr": weeks_arr,
-                "time": self.get_class_time(course.get('jcs'))
+                "time": time,
+                "color": color,
+                "section": course.get('jcs')
             })
         
         self.parse_dict.setdefault("class_name", user_class_name)

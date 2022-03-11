@@ -9,10 +9,13 @@
 
 from school_sdk.client.api.schedule_parse import ScheduleParse
 from school_sdk.client.api import BaseCrawler
+from school_sdk.client.exceptions import LoginException
+from school_sdk.client.utils import user_is_login
 
 
 class Schedule(BaseCrawler):
-
+    year = None
+    term = None
     def __init__(self, user_client) -> None:
         """课表类
 
@@ -38,6 +41,8 @@ class Schedule(BaseCrawler):
             dict: 解析后的课表数据
         """
         if not self.is_load_schedule():
+            self.load_schedule(**kwargs)
+        if kwargs.get("year") != self.year or kwargs.get("term") != self.term:
             self.load_schedule(**kwargs)
         return self.schedule_parse.get_dict()
 
@@ -76,6 +81,8 @@ class Schedule(BaseCrawler):
         self.schedule_parse.load(self.raw_schedule)
 
     def _get_student_schedule(self, year, term, **kwargs):
+        self.year = year
+        self.term = term
         params = {
             "gnmkdm": "N2151",
             "su": self.account
@@ -89,4 +96,7 @@ class Schedule(BaseCrawler):
         url = self.school.config['url_endpoints']['SCHEDULE']['API']
 
         res = self.post(url=url, params=params, data=data, **kwargs)
-        return res.json()
+        # print(res.text, res, res.status_code)
+        if user_is_login(self.account, res.text):
+            return res.json()
+        raise LoginException()

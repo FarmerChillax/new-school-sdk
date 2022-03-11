@@ -9,8 +9,9 @@
 
 [![Downloads](https://pepy.tech/badge/school-sdk)](https://pepy.tech/project/school-sdk)
 
-## 依赖
-- Python >= 3.8 
+## 测试环境
+- Python == 3.8 
+- 默认验证码识别方式: CPU
 
 ## Usage
 ```Shell
@@ -33,12 +34,14 @@ print(course)
 
 ## Api Function
 
-| Api          | Description  | Argument          |
-| :----------- | :----------- | :---------------- |
-| user_login   | 登陆函数     | account, password |
-| get_schedule | 课表查询     | year, term        |
-| get_score    | 成绩查询     | year, term        |
-| get_info     | 获取个人信息 | None              |
+| Api           | Description                 | Argument          |
+| :------------ | :-------------------------- | :---------------- |
+| user_login    | 登陆函数                    | account, password |
+| get_schedule  | 课表查询                    | year, term        |
+| get_score     | 成绩查询                    | year, term        |
+| get_info      | 获取个人信息                | None              |
+| refresh_info  | 刷新个人信息                | None              |
+| check_session | 检查session并其失效后重登录 | None              |
 
 
 
@@ -58,6 +61,11 @@ print(course)
 | timeout       | 10           | 全局请求延时             |
 | url_endpoints | None         | 地址配置                 |
 
+## 相关项目
+
+- 新版正方教务系统: https://github.com/Farmer-chong/new-school-sdk
+- 旧版正方教务系统: https://github.com/dairoot/school-api
+- SDK的Flask扩展: https://github.com/Farmer-chong/flask-school
 
 
 <!-- | <!--            | url_path_list | `略`                    | 学校接口地址列表 |

@@ -18,7 +18,7 @@ with open(path.join(basedir, "README.md"), encoding='utf-8') as f:
 setup(
     name="zf-school-sdk",
     author="farmer.chillax",
-    version="1.3.2",
+    version="1.4.8",
     license='MIT',
     author_email="farmer-chong@qq.com",
     description="zf School SDK for Python",

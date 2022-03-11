@@ -9,7 +9,7 @@ from school_sdk import SchoolClient
 from school_sdk.client import UserClient
 
 # 实例化学校
-Gdust = SchoolClient("farmer2333.top", port=7899)
+Gdust = SchoolClient("172.16.254.1", port=2333)
 
 # 实例化用户
 cookies_str = "<Your cookies string>" # e.g JSESSIONID=E738AE92B3CF133171F5B8E3E4643A5E

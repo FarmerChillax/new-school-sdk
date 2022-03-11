@@ -1,0 +1,24 @@
+site_name: school SDK
+theme:
+  name: material
+  language: zh
+
+  icon:
+    repo: fontawesome/brands/git-alt 
+
+  features:
+    - navigation.top
+
+
+repo_url: https://github.com/Farmer-chong/new-school-sdk
+repo_name: Farmer/new-school-sdk
+
+extra:
+  analytics:
+    provider: google
+    property: UA-XXXXXXXX-X
+  
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+

@@ -7,8 +7,10 @@
 '''
 from typing import Dict, Union
 import requests
+from school_sdk.client.api.class_schedule import ScheduleClass
 from school_sdk.client.api.score import Score
 from school_sdk.client.api.user_info import Info
+from school_sdk.client.utils import user_is_login
 from school_sdk.config import URL_ENDPOINT
 from school_sdk.client.api.schedules import Schedule
 from school_sdk.client.exceptions import LoginException
@@ -76,8 +78,9 @@ class UserClient(BaseUserClient):
     schedule: Schedule = None
     score: Score = None
     info = None
+    schedule_class: ScheduleClass = None
 
-    def __init__(self, school, account, password) -> None:
+    def __init__(self, school: SchoolClient, account, password) -> None:
         """初始化用户类
         用户类继承自学校
 
@@ -86,38 +89,43 @@ class UserClient(BaseUserClient):
             account (str): 账号
             password (str): 密码
         """
+        self.BASE_URL = school.base_url
         self.account = account
         self.password = password
-        self.school = school
+        self.school: SchoolClient = school
         self._csrf = None
-        self.t = int(time.time())
+        self.t = int(time.time() * 1000)
         self._image = None
 
     def login(self):
         """用户登录，通过SchoolClient调用
         """
         user = ZFLogin(user_client=self)
-        # user.get_raw_csrf_and_cookie()
-        # user.get_rsa_publick_key()
-        try:
-            user.get_login()
-            self._http = user._http
-            return self
-        except LoginException as login_err:
-            print(login_err)
+        user.get_login()
+        self._http = user._http
+        return self
 
     def init_schedule(self):
         if self.schedule is None:
             self.schedule = Schedule(self)
 
-    def get_schedule(self, **kwargs):
+    def get_schedule(self, year: int, term: int = 1, **kwargs):
         """获取课表"""
+        kwargs.setdefault("year", year)
+        kwargs.setdefault("term", term)
         if self.schedule is None:
             self.schedule = Schedule(self)
         return self.schedule.get_schedule_dict(**kwargs)
 
-    def get_score(self, **kwargs):
+    def get_class_schedule(self, year: int, term:int = 1, **kwargs):
+        self.schedule_class = ScheduleClass(self)
+        self.schedule_class._get_raw(year=2021, term=1, **kwargs)
+        return "dev"
+
+    def get_score(self, year: int, term: int = 1, **kwargs):
         """获取成绩"""
+        kwargs.setdefault("year", year)
+        kwargs.setdefault("term", term)
         if self.score is None:
             self.score = Score(self)
         return self.score.get_score(**kwargs)
@@ -127,6 +135,26 @@ class UserClient(BaseUserClient):
         if self.info is None:
             self.info = Info(self)
         return self.info.get_info(**kwargs)
+
+    def refresh_info(self, **kwargs):
+        self.info = None
+        return self.get_info(**kwargs)
+
+    def check_session(self) -> bool:
+        url = self.school.config.get("url_endpoints")["INDEX_URL"]
+        resp = self.get(url)
+        try:
+            if not user_is_login(self.account, resp.text):
+                # 重新登录
+                # print('开始重新登陆')
+                new_user = ZFLogin(user_client=self)
+                new_user.get_login()
+                self._http = new_user._http
+        except LoginException as le:
+            # print(le)
+            raise LoginException(
+                400, f"重新登录出错: 账号{self.account}的 session 已过期, 重新登录失败: {str(le)}")
+        return True
 
     # dev options
     def get_cookies(self):
