@@ -15,7 +15,8 @@ url_endpoints = {
     'LOGIN': {
         # 该模块表示登录使用到的端点
         'INDEX': '/xtgl/login_slogin.html', # 首页，一般和上面保持一致
-        'CAPTCHA': '/zfcaptchaLogin', # 验证码url，貌似都一样
+        'CAPTCHA': '/zfcaptchaLogin', # 滑块验证码url，貌似都一样
+        'KCAPTCHA': '/kaptcha', # 图片验证码
         'PUBLIC_KEY': '/xtgl/login_getPublicKey.html', # RSA密钥端点
     },
     "SCORE_URL": "", # 未使用
@@ -27,6 +28,10 @@ url_endpoints = {
     # 成绩页面的api
     'SCORE': {
         'API': '/cjcx/cjcx_cxDgXscj.html'
+    },
+    # 获取个人信息
+    'INFO': {
+        'API': '/xsxxxggl/xsgrxxwh_cxXsgrxx.html'
     }
 }
 
