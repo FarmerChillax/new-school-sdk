@@ -174,3 +174,6 @@ class UserClient(BaseUserClient):
         self._http = requests.Session()
         self.set_cookies(cookies=cookies, **kwargs)
         return self
+
+    def __repr__(self) -> str:
+        return f'<school_sdk.client.UserClient account: {self.account}>'
