@@ -51,11 +51,12 @@ class ZFLogin(BaseCrawler):
                     if is_login:
                         return is_login
                 raise LoginException("xxx", "验证码登录失败")
-
+        else:
             # 没有验证码登录
-            if not self._post_login():
-                raise LoginException("xxx", "登录失败")
-            return True
+            if self._post_login():
+                return True
+        
+        raise LoginException("xxx", "登录失败")
 
     def __init__(self, user_client) -> None:
         super().__init__(user_client)

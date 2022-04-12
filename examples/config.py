@@ -11,16 +11,17 @@ from school_sdk import SchoolClient
 
 # 通过抓包填写以下路径，如有迷惑或错误烦请提issue并提供地址测试
 url_endpoints = {
-    'HOME_URL': "/xtgl/login_slogin.html", # 首页url
+    'HOME_URL': "/xtgl/login_slogin.html",  # 首页url
+    "INDEX_URL": "/xtgl/index_initMenu.html",
     'LOGIN': {
         # 该模块表示登录使用到的端点
-        'INDEX': '/xtgl/login_slogin.html', # 首页，一般和上面保持一致
-        'CAPTCHA': '/zfcaptchaLogin', # 滑块验证码url，貌似都一样
-        'KCAPTCHA': '/kaptcha', # 图片验证码
-        'PUBLIC_KEY': '/xtgl/login_getPublicKey.html', # RSA密钥端点
+        'INDEX': '/xtgl/login_slogin.html',  # 首页，一般和上面保持一致
+        'CAPTCHA': '/zfcaptchaLogin',  # 滑块验证码url，貌似都一样
+        'KCAPTCHA': '/kaptcha',  # 图片验证码
+        'PUBLIC_KEY': '/xtgl/login_getPublicKey.html',  # RSA密钥端点
     },
-    "SCORE_URL": "", # 未使用
-    "INFO_URL": "", # 未使用
+    "SCORE_URL": "",  # 未使用
+    "INFO_URL": "",  # 未使用
     # 课表页面的api
     "SCHEDULE": {
         "API": '/kbcx/xskbcx_cxXsKb.html',
@@ -37,10 +38,11 @@ url_endpoints = {
 
 # 使用自定义的endpoints，实例化学校
 # exist_verify: 是否有验证码
-Gdust = SchoolClient("172.16.254.1", exist_verify=True, url_endpoints=url_endpoints)
+Gdust = SchoolClient("172.16.254.1", exist_verify=True,
+                     url_endpoints=url_endpoints)
 
 # 实例化用户
-user:UserClient = Gdust.user_login("account", "password")
+user: UserClient = Gdust.user_login("account", "password")
 
 # 获取课表
 course = user.get_schedule(year=2021, term=1)
