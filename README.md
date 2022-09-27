@@ -7,7 +7,22 @@
 [![Downloads](https://pepy.tech/badge/school-sdk)](https://pepy.tech/project/school-api) -->
 
 
-[![Downloads](https://pepy.tech/badge/school-sdk)](https://pepy.tech/project/school-sdk)
+<!-- <p align = "center"> -->
+  [![Downloads](https://pepy.tech/badge/school-sdk)](https://pepy.tech/project/school-sdk)
+    <a href = "https://www.python.org">
+        <img alt = "python3" src = "https://img.shields.io/badge/language-python3-brightgreen" />
+    </a>
+    <a href = "LICENSE">
+        <img alt = "license" src = "https://img.shields.io/badge/license-MIT-blue.svg" />
+    </a>
+    <a href = "https://github.com/FarmerChillax/new-school-sdk/stargazers/">
+        <img alt = "stars" src = "https://badgen.net/github/stars/FarmerChillax/new-school-sdk/" />
+    </a>
+    <a href = "https://github.com/FarmerChillax/new-school-sdk/network/members/">
+        <img alt = "forks" src = "https://badgen.net/github/forks/FarmerChillax/new-school-sdk/" />
+    </a>
+<!-- </p> -->
+
 
 ## 测试环境
 - Python == 3.8 
