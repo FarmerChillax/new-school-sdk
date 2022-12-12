@@ -23,6 +23,7 @@
     </a>
 <!-- </p> -->
 
+[在线文档](https://farmerChillax.github.io/new-school-sdk/)
 
 ## 测试环境
 - Python == 3.8 
