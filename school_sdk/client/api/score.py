@@ -94,9 +94,10 @@ class Score(BaseCrawler):
         return res.json()
 
     def _parse(self, raw: dict):
-        # kcmc -> 课程名称 # kcxzmc -> 课程性质名称 # kcbj -> 课程标记 # jsxm -> 教师姓名
-        # khfsmc -> 考核方式 # ksxz -> 考试性质 # xf -> 学分 # kkbmmc -> 开课部门名称 # cj -> 成绩
-        # njdm_id -> 年级代码
+        # kcmc -> 课程名称 # kch -> 课程号 # kcxzmc -> 课程性质名称 # kcbj -> 课程标记
+        # jsxm -> 教师姓名 # tjsj -> 提交时间 # khfsmc -> 考核方式 # ksxz -> 考试性质
+        # cj -> 成绩 # bfzcj -> 百分制成绩 # xf -> 学分 # kkbmmc -> 开课部门名称
+        # njdm_id -> 年级代码 # jd -> 绩点 # bzxx -> 备注信息
         """解析教务系统成绩
 
         Args:
@@ -108,16 +109,20 @@ class Score(BaseCrawler):
         for item in items:
             format_item = {
                 "course_name": item.get('kcmc'),
+                "course_code": item.get('kch'),
                 'course_nature': item.get('kcxzmc'),
                 'course_target': item.get('kcbj'),
                 'teacher': item.get('jsxm'),
+                'submitted_at': item.get('tjsj'),
                 'exam_method': item.get('khfsmc'),
                 'exam_nature': item.get('ksxz'),
                 'exam_result': item.get('cj'),
+                'exam_score': item.get('bfzcj'),
                 'credit': item.get('xf'),
                 'course_group': item.get('kkbmmc'),
                 'grade': item.get('njdm_id'),
-                'grade_point': item.get('jd')
+                'grade_point': item.get('jd'),
+                'reason': item.get('bzxx')
             }
             self.score_list.append(format_item)
             self.score_dict.setdefault(item.get('kcmc'), format_item)
