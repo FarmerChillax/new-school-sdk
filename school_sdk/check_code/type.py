@@ -10,8 +10,6 @@ from io import BytesIO
 from typing import Tuple
 from PIL import Image
 
-from school_sdk.check_code.predict import check
-
 scan_height = 50
 
 def captcha_func(image:Image) -> Tuple[int, int]:
@@ -40,6 +38,8 @@ def captcha_func(image:Image) -> Tuple[int, int]:
 def kaptcha_func(image:Image) -> str:
     """图片验证码回调函数
     """
+    from school_sdk.check_code.predict import check
+
     code = check(image)
     # print(code)
     return code
