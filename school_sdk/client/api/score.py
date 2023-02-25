@@ -108,21 +108,21 @@ class Score(BaseCrawler):
         items = raw.get('items')
         for item in items:
             format_item = {
-                "course_name": item.get('kcmc'),
-                "course_code": item.get('kch'),
-                'course_nature': item.get('kcxzmc'),
-                'course_target': item.get('kcbj'),
-                'teacher': item.get('jsxm'),
-                'submitted_at': item.get('tjsj'),
-                'exam_method': item.get('khfsmc'),
-                'exam_nature': item.get('ksxz'),
-                'exam_result': item.get('cj'),
-                'exam_score': item.get('bfzcj'),
-                'credit': item.get('xf'),
-                'course_group': item.get('kkbmmc'),
-                'grade': item.get('njdm_id'),
-                'grade_point': item.get('jd'),
-                'reason': item.get('bzxx')
+                "course_name": item.get('kcmc'), # kcmc -> 课程名称
+                "course_code": item.get('kch'), # kch -> 课程号
+                'course_nature': item.get('kcxzmc'), # kcxzmc -> 课程性质名称
+                'course_target': item.get('kcbj'), # kcbj -> 课程标记
+                'teacher': item.get('jsxm'), # jsxm -> 教师姓名
+                'submitted_at': item.get('tjsj'), # tjsj -> 提交时间
+                'exam_method': item.get('khfsmc'), # khfsmc -> 考核方式
+                'exam_nature': item.get('ksxz'), # ksxz -> 考试性质
+                'exam_result': item.get('cj'), # cj -> 成绩
+                'exam_score': item.get('bfzcj'), # bfzcj -> 百分制成绩
+                'credit': item.get('xf'), # xf -> 学分
+                'course_group': item.get('kkbmmc'), # kkbmmc -> 开课部门名称
+                'grade': item.get('njdm_id'), # njdm_id -> 年级代码
+                'grade_point': item.get('jd'), # jd -> 绩点
+                'reason': item.get('bzxx') # bzxx -> 备注信息
             }
             self.score_list.append(format_item)
             self.score_dict.setdefault(item.get('kcmc'), format_item)
