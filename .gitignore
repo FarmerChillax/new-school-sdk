@@ -12,3 +12,4 @@ school_sdk.egg-info
 build
 dist
 zf_school_sdk.egg-info
+.env

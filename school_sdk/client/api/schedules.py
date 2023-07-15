@@ -16,7 +16,7 @@ from school_sdk.client.utils import user_is_login
 class Schedule(BaseCrawler):
     year = None
     term = None
-    def __init__(self, user_client) -> None:
+    def __init__(self, user_client, schedule_time:dict = None) -> None:
         """课表类
 
         Args:
@@ -25,7 +25,7 @@ class Schedule(BaseCrawler):
         super().__init__(user_client=user_client)
         self.raw_schedule = None
         self.schedule = None
-        self.schedule_parse: ScheduleParse = ScheduleParse()
+        self.schedule_parse: ScheduleParse = ScheduleParse(schedule_time=schedule_time)
 
     def refresh_schedule(self):
         """刷新课表数据
@@ -34,7 +34,7 @@ class Schedule(BaseCrawler):
         self.schedule = None
         self.load_schedule()
 
-    def get_schedule_dict(self, **kwargs):
+    def get_schedule_dict(self, **kwargs) -> dict:
         """获取解析后的课表数据
 
         Returns:

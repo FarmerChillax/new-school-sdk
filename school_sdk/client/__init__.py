@@ -108,13 +108,17 @@ class UserClient(BaseUserClient):
     def init_schedule(self):
         if self.schedule is None:
             self.schedule = Schedule(self)
+    
+    def set_schedule_time(self, schedule_time: dict):
+        self.schedule.schedule_parse.set_schedule_time(schedule_time=schedule_time)
 
-    def get_schedule(self, year: int, term: int = 1, **kwargs):
+    def get_schedule(self, year: int, term: int = 1, schedule_time: dict = None, **kwargs):
         """获取课表"""
         kwargs.setdefault("year", year)
         kwargs.setdefault("term", term)
         if self.schedule is None:
-            self.schedule = Schedule(self)
+            self.schedule = Schedule(self, schedule_time)
+
         return self.schedule.get_schedule_dict(**kwargs)
 
     def get_class_schedule(self, year: int, term:int = 1, **kwargs):

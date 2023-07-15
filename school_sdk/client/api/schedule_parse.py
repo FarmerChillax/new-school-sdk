@@ -9,8 +9,7 @@ import re
 
 
 class ScheduleParse():
-
-    __TIME_LIST = {
+    __SCHEDULE_TIME = {
         "1": [8, 30],
         "2": [9, 20],
         "3": [10, 25],
@@ -23,11 +22,16 @@ class ScheduleParse():
         "10": [20, 20]
     }
 
-    def __init__(self, content=None) -> None:
+    def __init__(self, content=None, schedule_time:dict=None) -> None:
         self.raw = content
         self.parse_list:list = []
         self.parse_dict:dict = {}
         self.parse_ics = None
+        if schedule_time != None:
+            self.SCHEDULE_TIME = schedule_time or self.__SCHEDULE_TIME
+
+    def set_schedule_time(self, schedule_time:dict):
+        self.SCHEDULE_TIME = schedule_time or self.__SCHEDULE_TIME
 
     def get_dict(self):
         return self.parse_dict
@@ -111,8 +115,8 @@ class ScheduleParse():
             [type]: 课程开始和课程结束的时间
         """
         start, end = b2e.split('-')
-        start_time = self.__TIME_LIST[start]
-        end_time = self.__TIME_LIST[end]
+        start_time = self.SCHEDULE_TIME[start]
+        end_time = self.SCHEDULE_TIME[end]
         return {"start": start_time, "last": end_time}
 
     def get_course_week(self, week_text: str) -> list:
