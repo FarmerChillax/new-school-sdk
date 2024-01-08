@@ -19,6 +19,9 @@ from school_sdk.client.api.login import ZFLogin
 from school_sdk.client.base import BaseUserClient
 
 
+CAPTCHA: str = 'captcha'
+KCAPTCHA: str = 'kap'
+
 class SchoolClient():
 
     def __init__(self, host, port: int = 80, ssl: bool = False, name=None, exist_verify: bool = False,
