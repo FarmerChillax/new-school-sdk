@@ -71,6 +71,18 @@ class SchoolClient():
         user = UserClient(self, account=account, password=password, **kwargs)
         return user.login()
 
+    def user_login_with_cookies(self, cookies: str, account: str = "cookie login account", password: str = "cookie login password", **kwargs):
+        """使用cookies登录
+
+        Args:
+            cookies (str): Cookies字符串
+            account (str, optional): 账号. Defaults to "cookie login account".
+            password (str, optional): 密码. Defaults to "cookie login password".
+        """
+
+        user = UserClient(self, account=account, password=password, **kwargs)
+        return user.get_dev_user(cookies)
+
     def init_dev_user(self, cookies: str = None):
         dev_user = UserClient(self, account="dev account",
                               password="dev password")
