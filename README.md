@@ -25,6 +25,13 @@
 
 [在线文档](https://farmerChillax.github.io/new-school-sdk/)
 
+## 支持的登录/验证码方式
+- 帐号密码登录
+- 滑块验证码登录
+- 图形验证码登录
+- cookie 登录（用于扫码登录等场景）
+
+
 ## 测试环境
 - Python == 3.8 
 - 默认验证码识别方式: CPU
