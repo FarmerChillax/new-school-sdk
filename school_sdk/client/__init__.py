@@ -19,6 +19,9 @@ from school_sdk.client.api.login import ZFLogin
 from school_sdk.client.base import BaseUserClient
 
 
+CAPTCHA: str = 'captcha'
+KCAPTCHA: str = 'kap'
+
 class SchoolClient():
 
     def __init__(self, host, port: int = 80, ssl: bool = False, name=None, exist_verify: bool = False,
@@ -67,6 +70,19 @@ class SchoolClient():
         """
         user = UserClient(self, account=account, password=password, **kwargs)
         return user.login()
+
+    def user_login_with_cookies(self, cookies: str, account: str = "cookie login account", **kwargs):
+        """使用cookies登录
+            该方法因缺失帐号密码，因此无法刷新session，需要手动刷新
+            传参中的 account 主要用于标识当前登录用户、记录日志信息等用途，不会用于登录
+
+        Args:
+            cookies (str): Cookies字符串
+            account (str, optional): 账号. Defaults to "cookie login account".
+        """
+
+        user = UserClient(self, account=account, password="cookies login password", **kwargs)
+        return user.get_dev_user(cookies)
 
     def init_dev_user(self, cookies: str = None):
         dev_user = UserClient(self, account="dev account",

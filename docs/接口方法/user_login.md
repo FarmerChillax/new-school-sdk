@@ -16,3 +16,6 @@ Gdust = SchoolClient("172.16.254.1")
 # 实例化用户
 user:UserClient = Gdust.user_login("account", "password")
 ```
+
+## 其他登录方式
+更多登录 demo 详见仓库 [examples](https://github.com/FarmerChillax/new-school-sdk/tree/master/examples) 目录
