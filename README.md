@@ -21,6 +21,8 @@
     <a href = "https://github.com/FarmerChillax/new-school-sdk/network/members/">
         <img alt = "forks" src = "https://badgen.net/github/forks/FarmerChillax/new-school-sdk/" />
     </a>
+    [![PyPI Version](http://img.shields.io/pypi/v/school-sdk.svg)](https://pypi.python.org/pypi/school-sdk)
+
 <!-- </p> -->
 
 [在线文档](https://farmerChillax.github.io/new-school-sdk/)
