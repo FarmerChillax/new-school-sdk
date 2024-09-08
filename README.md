@@ -94,7 +94,9 @@ print(course)
 | url_endpoints | None         | 地址配置                 |
 
 ## 相关项目
-> 帮教务系统做负载均衡：https://github.com/FarmerChillax/school-load-balance  (如果你们学校教务系统抢课经常崩溃，可以考虑看看这个 repo)
+> 帮教务系统做负载均衡：https://github.com/FarmerChillax/school-load-balance
+> 
+> (如果你们学校教务系统抢课经常崩溃，可以考虑看看这个 repo)
 
 
 - 新版正方教务系统: https://github.com/Farmer-chong/new-school-sdk
