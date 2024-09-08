@@ -29,6 +29,8 @@
 
 [在线文档](https://farmerChillax.github.io/new-school-sdk/)
 
+[Roadmap](https://github.com/FarmerChillax/new-school-sdk/milestone/1)
+
 ## 支持的登录/验证码方式
 - 帐号密码登录
 - 滑块验证码登录
@@ -92,6 +94,8 @@ print(course)
 | url_endpoints | None         | 地址配置                 |
 
 ## 相关项目
+> 帮教务系统做负载均衡：https://github.com/FarmerChillax/school-load-balance  (如果你们学校教务系统抢课经常崩溃，可以考虑看看这个 repo)
+
 
 - 新版正方教务系统: https://github.com/Farmer-chong/new-school-sdk
 - 旧版正方教务系统: https://github.com/dairoot/school-api
