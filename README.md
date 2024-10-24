@@ -59,10 +59,10 @@ from school_sdk.client import UserClient
 # 先实例化一个学校，再实例化用户
 school = SchoolClient("172.16.254.1")
 user:UserClient = school.user_login("2018xxxxx", "xxxxxxxx")
+
+# 获取 2020 学年第二学期的课程
 course = user.get_schedule(year=2020, term=2)
 print(course)
-
-
 ```
 
 使用示例参见 [examples](examples/)
