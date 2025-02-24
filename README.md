@@ -102,9 +102,9 @@ print(course)
 > (如果你们学校教务系统抢课经常崩溃，可以考虑看看这个 repo)
 
 
-- 新版正方教务系统: https://github.com/Farmer-chong/new-school-sdk
+- 新版正方教务系统: https://github.com/FarmerChillax/new-school-sdk
 - 旧版正方教务系统: https://github.com/dairoot/school-api
-- SDK的Flask扩展: https://github.com/Farmer-chong/flask-school
+- SDK的Flask扩展: https://github.com/FarmerChillax/flask-school
 - 验证码识别: https://github.com/FarmerChillax/new-zfxfzb-code
 
 <!-- | <!--            | url_path_list | `略`                    | 学校接口地址列表 |
