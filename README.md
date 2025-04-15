@@ -89,7 +89,7 @@ print(course)
 | ssl           | False        | 教务系统是否使用https    |
 | name          | None         | 学校名称                 |
 | exist_verify  | False        | 是否存在验证码           |
-| captcha_type  | captcha      | 验证码类型，枚举类型(Kaptcha: 常规 或 captcha: 滑块) |
+| captcha_type  | captcha      | 验证码类型，枚举类型(kaptcha: 常规 或 captcha: 滑块) |
 | retry         | 10           | 登录重试次数             |
 | lan_host      | None         | 内网地址（暂不可用）                 |
 | lan_port      | 80           | 内网地址端口（暂不可用）             |
