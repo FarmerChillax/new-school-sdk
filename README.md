@@ -1,6 +1,6 @@
 新版正方系统 Python SDK。(支持自动识别、处理滑块验证码与常规验证码，如果觉得还不错,给个小星星趴~⭐)
 
-> 这是全网唯一一个自动处理新版教务系统验证码的 SDK :p
+> 这是全网唯一一个自动处理验证码的新版教务系统 SDK :p
 
 <!-- [![Build Status](https://travis-ci.org/dairoot/school-api.svg?branch=master)](https://travis-ci.org/dairoot/school-api)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dairoot/school-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dairoot/school-api/?branch=master)
