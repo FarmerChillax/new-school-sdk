@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-    :file: use_verify.py
+    :file: proxy_request_examples.py
     :author: -Farmer
     :url: https://blog.farmer233.top
     :date: 2025/07/25 14:21:07
