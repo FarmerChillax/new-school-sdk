@@ -82,7 +82,7 @@ print(course)
 | get_info      | 获取个人信息                | None              |
 | refresh_info  | 刷新个人信息                | None              |
 | check_session | 检查session并其失效后重登录 | None              |
-
+| proxy_request | 补充 sdk 未实现的业务功能，以支持各种登录后的教务系统操作 | method, url_or_endpoint, **kwargs  |
 
 
 ## School-SDK Options
