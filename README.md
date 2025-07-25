@@ -29,6 +29,10 @@
 
 <!-- </p> -->
 
+> ⚠️⚠️⚠️ 本项目理论上支持教务系统所有功能，兼容所有学校
+> 使用文档：[在线文档](https://farmerchillax.github.io/new-school-sdk/%E6%8E%A5%E5%8F%A3%E6%96%B9%E6%B3%95/others/)
+> 使用案例：[proxy_request example](./examples/proxy_request_examples.py)
+
 [在线文档](https://farmerChillax.github.io/new-school-sdk/)
 
 [Roadmap](https://github.com/FarmerChillax/new-school-sdk/milestone/1)
