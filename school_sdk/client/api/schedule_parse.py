@@ -6,7 +6,7 @@
     :date: 2021/09/14 13:03:36
 '''
 import re
-
+import typing as t
 
 class ScheduleParse():
     __SCHEDULE_TIME = {
@@ -22,7 +22,7 @@ class ScheduleParse():
         "10": [20, 20]
     }
 
-    def __init__(self, content=None, schedule_time:dict=None) -> None:
+    def __init__(self, content=None, schedule_time:t.Union[dict, None]=None) -> None:
         self.raw = content
         self.parse_list:list = []
         self.parse_dict:dict = {}

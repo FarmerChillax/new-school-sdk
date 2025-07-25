@@ -8,13 +8,13 @@
 
 # from school_sdk.client.api.login_manage import LoginManagement
 # from school_sdk.client.settings import HOST
+import typing as t
 import re
 import requests
 from fake_headers import Headers
 import time
 from pyquery import PyQuery as pq
 from school_sdk.client.exceptions import LoginException
-
 
 class BaseCrawler():
 

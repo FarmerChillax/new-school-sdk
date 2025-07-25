@@ -5,7 +5,7 @@
     :url: https://blog.farmer233.top
     :date: 2021/09/02 22:20:52
 '''
-from typing import Dict, Union
+import typing as t
 import requests
 from school_sdk.client.api.class_schedule import ScheduleClass
 from school_sdk.client.api.score import Score
@@ -91,10 +91,10 @@ class SchoolClient():
 
 
 class UserClient(BaseUserClient):
-    schedule: Schedule = None
-    score: Score = None
+    schedule: Schedule
+    score: Score
     info = None
-    schedule_class: ScheduleClass = None
+    schedule_class: ScheduleClass
 
     def __init__(self, school: SchoolClient, account, password) -> None:
         """初始化用户类
@@ -128,7 +128,7 @@ class UserClient(BaseUserClient):
     def set_schedule_time(self, schedule_time: dict):
         self.schedule.schedule_parse.set_schedule_time(schedule_time=schedule_time)
 
-    def get_schedule(self, year: int, term: int = 1, schedule_time: dict = None, **kwargs):
+    def get_schedule(self, year: int, term: int = 1, schedule_time: t.Union[dict, None] = None, **kwargs):
         """获取课表"""
         kwargs.setdefault("year", year)
         kwargs.setdefault("term", term)
@@ -194,6 +194,21 @@ class UserClient(BaseUserClient):
         self._http = requests.Session()
         self.set_cookies(cookies=cookies, **kwargs)
         return self
+
+    def proxy_request(self, method: str, url_or_endpoint: str, **kwargs) -> requests.Response:
+        """此方法用于补充 sdk 未实现的业务功能，以支持各种登录后的教务系统操作
+        
+        用户可以通过此方法实现各种登录后的操作，但需自行完成相关业务逻辑，如解析请求体等
+
+        Args:
+            method (str): HTTP Method
+            url_or_endpoint (str): 请求的完整 URL 或者具体的请求 HTTP Path
+            **kwargs: 这些参数将会透传到 requests 网络请求库的 request 方法中，具体参数请查阅其文档: https://docs.python-requests.org/en/latest/api/#requests.request
+            
+        Returns:
+            requests.Response: HTTP Response
+        """
+        return self._request(method=method, url_or_endpoint=url_or_endpoint, **kwargs)
 
     def __repr__(self) -> str:
         return f'<school_sdk.client.UserClient account: {self.account}>'

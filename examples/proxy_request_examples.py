@@ -1,15 +1,10 @@
-# 其他接口
-
-## proxy_request (通用代理请求接口)
-
-| 字段       | 默认值  | 类型     | 描述   |
-| -------- | ---- | ------ | ---- |
-| method  | None | String | HTTP Method |
-| url_or_endpoint | None | String | 请求的完整 URL 或者具体的请求 HTTP Path |
-| **kwargs | None | Any | 这些参数将会透传到 requests 网络请求库的 request 方法中，具体参数请查阅其文档: https://docs.python-requests.org/en/latest/api/#requests.request |
-
-## 示例
-```python
+# -*- coding: utf-8 -*-
+'''
+    :file: proxy_request_examples.py
+    :author: -Farmer
+    :url: https://blog.farmer233.top
+    :date: 2025/07/25 14:21:07
+'''
 import requests
 from school_sdk.client import UserClient
 from school_sdk import SchoolClient
@@ -32,7 +27,3 @@ resp:requests.Response = user.proxy_request("POST", "/cjcx/cjcx_cxDgXscj.html", 
 
 # 3. 获取响应体内容
 print(f"response body: {resp.json()}")
-```
-
-## 其他登录方式
-更多 demo 详见仓库 [examples](https://github.com/FarmerChillax/new-school-sdk/tree/master/examples) 目录
