@@ -109,6 +109,7 @@ class UserClient(BaseUserClient):
         self.account = account
         self.password = password
         self.school: SchoolClient = school
+        self._http = requests.Session()
         self._csrf = None
         self.t = int(time.time() * 1000)
         self._image = None
@@ -118,7 +119,6 @@ class UserClient(BaseUserClient):
         """
         user = ZFLogin(user_client=self)
         user.get_login()
-        self._http = user._http
         return self
 
     def init_schedule(self):
