@@ -23,7 +23,9 @@ class BaseCrawler():
     def __init__(self, user_client) -> None:
         self.user_client = user_client
         self.school = user_client.school or None
-        self._http:requests.Session = user_client._http or requests.Session()
+        self._http = requests.Session()
+        if user_client._http is not None:
+            self._http = user_client._http
         self.t = int(time.time() * 1000)
         self.BASE_URL = user_client.school.base_url
 
