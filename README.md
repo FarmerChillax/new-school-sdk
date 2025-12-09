@@ -56,7 +56,8 @@ $ pip install zf-school-sdk
 ```
 
 > 如果机器内存不足，可以使用 pip `--no-cache-dir` 选项来安装
-> e.g: `pip --no-cache-dir install school-sdk`
+> e.g. `pip --no-cache-dir install school-sdk`
+> 或者指定构建路径，e.g. `pip install -b ~/pip_build_dir school-sdk`
 
 ```Python
 from school_sdk import SchoolClient
