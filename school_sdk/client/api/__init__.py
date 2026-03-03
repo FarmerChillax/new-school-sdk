@@ -55,7 +55,8 @@ class BaseCrawler():
     def is_login(self, html:str):
         re_str = f'value="{self.account}"'
         result = re.search(re_str, html)
-        if result:
+        result2 = re.search('请', html)
+        if result or result2:
             return True
         doc = pq(html)
         err_msg = doc('#tips').text()

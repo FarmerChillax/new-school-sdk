@@ -109,6 +109,8 @@ class UserClient(BaseUserClient):
         self.account = account
         self.password = password
         self.school: SchoolClient = school
+        self.score = None
+        self.schedule = None
         self._csrf = None
         self.t = int(time.time() * 1000)
         self._image = None
