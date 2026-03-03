@@ -15,7 +15,7 @@ class Score(BaseCrawler):
     term = None
     def __init__(self, user_client) -> None:
         super().__init__(user_client)
-        self.endpoints: dict = self.school.config['url_endpoints']
+        self.endpoints:dict = self.school.config['url_endpoints']
         self.raw_score = None
         self.score_dict:dict = {}
         self.score_list:list = []

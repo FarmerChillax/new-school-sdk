@@ -11,4 +11,5 @@
 | [get_info](./get_info.md)                  | 获取个人信息                                                    | None              |
 | [refresh_info](./others.md)                | 刷新个人信息                                                    | None              |
 | [check_session](./others.md)               | 检查session并其失效后重登录                                     | None              |
+| [proxy_request](./others.md)               | 补充 sdk 未实现的业务功能，以支持各种登录后的教务系统操作             | method, url_or_endpoint, **kwargs   |
 

@@ -6,7 +6,7 @@
     :date: 2021/09/08 11:16:22
 '''
 
-
+import typing as t
 from school_sdk.client.api.schedule_parse import ScheduleParse
 from school_sdk.client.api import BaseCrawler
 from school_sdk.client.exceptions import LoginException
@@ -16,7 +16,7 @@ from school_sdk.client.utils import user_is_login
 class Schedule(BaseCrawler):
     year = None
     term = None
-    def __init__(self, user_client, schedule_time:dict = None) -> None:
+    def __init__(self, user_client, schedule_time:t.Union[dict, None] = None) -> None:
         """课表类
 
         Args:

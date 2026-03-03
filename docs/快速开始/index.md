@@ -1,5 +1,10 @@
 # 简单示例
 
+## 安装模块
+```Shell
+$ pip install school-sdk
+```
+
 ## 使用示例
 
 ```py
