@@ -184,7 +184,8 @@ class ZFLogin(BaseCrawler):
         """
         re_str = f'value="{self.account}"'
         result = re.search(re_str, html)
-        if result:
+        result2 = re.search('请', html)
+        if result or result2:
             return True
         # 错误流程
         doc = pq(html)
