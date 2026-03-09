@@ -50,6 +50,9 @@
 
 ## Usage
 ```Shell
+# or（推荐）
+$ uv add school-sdk
+# or
 $ pip install school-sdk
 # or
 $ pip install zf-school-sdk
@@ -74,6 +77,24 @@ print(course)
 ```
 
 使用示例参见 [examples](examples/)
+
+## 使用 uv（推荐用于本地开发）
+
+```Shell
+# 1) 安装/切换 Python（项目当前使用 3.8）
+$ uv python install 3.8
+
+# 2) 同步依赖并创建虚拟环境
+$ uv sync
+
+# 3) 进入虚拟环境（可选）
+$ source .venv/bin/activate
+
+# 4) 运行示例
+$ uv run examples/base_sample.py
+```
+
+> 如果只需要运行时依赖，可使用：`uv sync --no-dev`
 
 ## Api Function
 
