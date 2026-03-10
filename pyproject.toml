@@ -1,6 +1,6 @@
 [project]
 name = "school-sdk"
-version = "1.7.1"
+version = "1.8.1"
 description = "New ZFSoft Python SDK - auto captcha recognition included"
 readme = "README.md"
 license = { text = "MIT" }
