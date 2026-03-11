@@ -1,0 +1,55 @@
+[project]
+name = "school-sdk"
+version = "1.8.1"
+description = "New ZFSoft Python SDK - auto captcha recognition included"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.8,<3.14"
+authors = [
+	{ name = "farmer.chillax", email = "farmer-chong@qq.com" },
+]
+keywords = ["zfxfzb", "school", "sdk", "education"]
+classifiers = [
+	"Environment :: Web Environment",
+	"Intended Audience :: Developers",
+	"License :: OSI Approved :: MIT License",
+	"Operating System :: OS Independent",
+	"Programming Language :: Python :: 3.8",
+	"Programming Language :: Python :: 3.9",
+	"Programming Language :: Python :: 3.10",
+	"Programming Language :: Python :: 3.11",
+	"Programming Language :: Python :: 3.12",
+	"Programming Language :: Python :: 3.13",
+	"Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+	"Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+	"requests>=2.26.0",
+	"pyquery>=1.4.3",
+	"bs4>=0.0.1",
+	"Pillow>=8.3.1",
+	"fake-headers>=1.0.2",
+	"torch>=1.10.1,<2",
+	"torchvision>=0.11.2,<1",
+]
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["school_sdk", "school_sdk.*"]
+
+[tool.setuptools.package-data]
+school_sdk = ["check_code/model.pkl"]
+
+[dependency-groups]
+dev = [
+	"autopep8==1.5.7",
+]
+
+[project.urls]
+Homepage = "https://github.com/FarmerChillax/new-school-sdk"
+Documentation = "https://farmerChillax.github.io/new-school-sdk/"
+Repository = "https://github.com/FarmerChillax/new-school-sdk"
+Issues = "https://github.com/FarmerChillax/new-school-sdk/issues"
