@@ -50,7 +50,7 @@
 
 ## Usage
 ```Shell
-# or（推荐）
+# （推荐）
 $ uv add school-sdk
 # or
 $ pip install school-sdk
@@ -81,16 +81,13 @@ print(course)
 ## 使用 uv（推荐用于本地开发）
 
 ```Shell
-# 1) 安装/切换 Python（项目当前使用 3.8）
-$ uv python install 3.8
-
-# 2) 同步依赖并创建虚拟环境
+# 1) 同步依赖并创建虚拟环境
 $ uv sync
 
-# 3) 进入虚拟环境（可选）
+# 2) 进入虚拟环境（可选）
 $ source .venv/bin/activate
 
-# 4) 运行示例
+# 3) 运行示例
 $ uv run examples/base_sample.py
 ```
 
