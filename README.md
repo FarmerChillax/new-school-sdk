@@ -137,3 +137,10 @@ $ uv run examples/base_sample.py
 | class_time_list | `略`          | 上课时间列表            |
 | timeout         | 10            | 全局请求延时            |
 | session         | MemoryStorage | 缓存工具(推荐使用redis) |              | --> 
+
+
+## Thanks to all of our contributors! 🎉
+
+<a href="https://github.com/FarmerChillax/new-school-sdk/graphs/contributors">
+  <img alt="Repo contributors" src="https://contrib.rocks/image?repo=FarmerChillax/new-school-sdk" />
+</a>
