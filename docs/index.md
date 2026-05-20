@@ -28,8 +28,8 @@ $ pip install school-sdk
 
 1. 按需创建虚拟环境
 2. 通过 `from school_sdk import SchoolClient, UserClient` 导入依赖包
-3. 通过 `MySchool = SchoolClient("<此处填写教务系统地址>")` 创建学校
-4. 通过`user = MySchool.user_login("account", "password")` 获取一个登录的用户
+3. 通过 `my_school = SchoolClient("<此处填写教务系统地址>")` 创建学校
+4. 通过`user = my_school.user_login("account", "password")` 获取一个登录的用户
 
 以下是完整的例子：
 ```py
