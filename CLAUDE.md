@@ -74,6 +74,10 @@ All API paths are defined in `school_sdk/config.py` as a `URL_ENDPOINT` dict. Ev
 
 `TERM = {1: 3, 2: 12, 3: 16}` maps human-readable term numbers to ZFSoft internal codes.
 
+## Git commits
+
+All commits must include a DCO sign-off. Always use `git commit -s` (or `--signoff`) when committing.
+
 ## Known stubs and WIP
 
 - `school_sdk/session/` — `RedisStorage` defined but not implemented
