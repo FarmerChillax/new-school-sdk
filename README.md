@@ -88,7 +88,7 @@ $ uv sync
 $ source .venv/bin/activate
 
 # 3) 运行示例
-$ uv run examples/base_sample.py
+$ uv run python examples/base_sample.py
 ```
 
 > 如果只需要运行时依赖，可使用：`uv sync --no-dev`
