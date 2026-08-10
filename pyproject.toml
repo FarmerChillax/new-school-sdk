@@ -55,6 +55,18 @@ dev = [
 	"pytest>=7",
 ]
 
+[tool.ruff]
+target-version = "py38"
+
+[tool.ruff.lint]
+# 白名单渐进式启用: 先保持与既有卫生检查等价, lint 规则后续分批放开
+select = [
+	"W291", # trailing-whitespace
+	"W292", # no-newline-at-end-of-file
+	"W293", # blank-line-with-whitespace
+	"T100", # breakpoint() 残留 (等价原 debug-statements 钩子)
+]
+
 [project.urls]
 Homepage = "https://github.com/FarmerChillax/new-school-sdk"
 Documentation = "https://farmerChillax.github.io/new-school-sdk/"

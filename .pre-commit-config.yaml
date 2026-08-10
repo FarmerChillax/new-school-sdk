@@ -2,20 +2,20 @@
 # 手动全量运行: uv run pre-commit run --all-files
 # 紧急跳过(不推荐): git commit --no-verify
 repos:
-  # 基础文件卫生检查
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
     hooks:
-      - id: trailing-whitespace
-        # 仓库内既有 md 文件含刻意的行尾双空格(Markdown 换行), 暂不检查
-        exclude: \.md$
-      - id: end-of-file-fixer
-        exclude: \.md$
       - id: check-yaml
       # model.pkl 约 39 MB, 属于随包分发的二进制权重, 不做检查
       - id: check-added-large-files
         exclude: ^school_sdk/check_code/model\.pkl$
-      - id: debug-statements
+
+  # 规则集在 pyproject.toml [tool.ruff.lint] 中定义, 采用白名单渐进式启用
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+        args: [--fix]
 
   # 关键回归: 离线冒烟测试必须全部通过才允许提交
   # system 语言直接复用项目 venv, 避免重复安装依赖; 测试仅需约 0.1s
