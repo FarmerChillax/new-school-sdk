@@ -68,6 +68,6 @@ class ScheduleClass(BaseCrawler):
         }
 
         url = self.school.config['url_endpoints']['CLASS_SCHEDULE']['API']
-        
+
         res = self.post(url=url, params=params, data=data, **kwargs)
         return res.json()

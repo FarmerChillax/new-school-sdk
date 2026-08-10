@@ -55,7 +55,7 @@ class ZFLogin(BaseCrawler):
             # 没有验证码登录
             if self._post_login():
                 return True
-        
+
         raise LoginException(400, "登录失败")
 
     def __init__(self, user_client) -> None:
@@ -129,7 +129,7 @@ class ZFLogin(BaseCrawler):
         res = self.get(url, params=params)
         if res.status_code == 200:
             return res.content
-    
+
 
     def _kaptcha_login(self, verify_code:str) -> bool:
         """发送登录请求
@@ -270,6 +270,3 @@ class ZFLogin(BaseCrawler):
                          "t": int(time.time() * 1000)})
             time.sleep(0.01)
         return track
-
-
-

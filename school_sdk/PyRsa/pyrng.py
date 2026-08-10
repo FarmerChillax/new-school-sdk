@@ -82,4 +82,3 @@ class SecureRandom:
     def rng_get_bytes(self, ba):
         for i in range(len(ba)):
             ba[i] = self.rng_get_byte()
-

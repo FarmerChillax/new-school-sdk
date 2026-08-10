@@ -36,7 +36,7 @@ class SchoolClient():
             name (str, optional): 学校名称. Defaults to None.
 
             exist_verify (bool, optional): 是否有验证码. Defaults to False.
-            captcha_type (str, optional): 验证码类型. Defaults to captcha. 
+            captcha_type (str, optional): 验证码类型. Defaults to captcha.
                     滑块传入cap开头, 图片传入kap开头 与教务系统的url地址对应, 默认识别滑块验证码.
             retry (int, optional): 登录重试次数. Defaults to 10.
 
@@ -126,7 +126,7 @@ class UserClient(BaseUserClient):
     def init_schedule(self):
         if self.schedule is None:
             self.schedule = Schedule(self)
-    
+
     def set_schedule_time(self, schedule_time: dict):
         self.schedule.schedule_parse.set_schedule_time(schedule_time=schedule_time)
 
@@ -204,14 +204,14 @@ class UserClient(BaseUserClient):
 
     def proxy_request(self, method: str, url_or_endpoint: str, **kwargs) -> requests.Response:
         """此方法用于补充 sdk 未实现的业务功能，以支持各种登录后的教务系统操作
-        
+
         用户可以通过此方法实现各种登录后的操作，但需自行完成相关业务逻辑，如解析请求体等
 
         Args:
             method (str): HTTP Method
             url_or_endpoint (str): 请求的完整 URL 或者具体的请求 HTTP Path
             **kwargs: 这些参数将会透传到 requests 网络请求库的 request 方法中，具体参数请查阅其文档: https://docs.python-requests.org/en/latest/api/#requests.request
-            
+
         Returns:
             requests.Response: HTTP Response
         """

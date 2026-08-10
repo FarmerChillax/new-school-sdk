@@ -103,6 +103,8 @@ $ uv run python examples/base_sample.py
 > 如果只需要运行时依赖，可使用：`uv sync --no-dev`
 >
 > 如需本地调试图形验证码识别：`uv sync --extra kaptcha`
+>
+> 建议安装 pre-commit 钩子，提交前自动运行离线测试与基础检查：`uv run pre-commit install`
 
 ## Api Function
 

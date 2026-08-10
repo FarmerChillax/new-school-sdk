@@ -19,6 +19,12 @@ cd test && python test.py
 # Format code
 autopep8 --in-place --recursive school_sdk/
 
+# Offline tests (mocked, no live school system needed)
+uv run pytest tests/
+
+# Install pre-commit hook (runs offline tests before every commit)
+uv run pre-commit install
+
 # Build package
 uv build
 
@@ -26,7 +32,7 @@ uv build
 uv run --with mkdocs-material mkdocs serve
 ```
 
-There is no pytest or automated test suite — only `test/test.py`, which is a manual integration test against a live school system.
+Automated offline tests live in `tests/test_offline_smoke.py` (mocked HTTP responses, pytest-compatible). `test/test.py` is a manual integration test against a live school system and is excluded from git via `.gitignore`.
 
 ## Architecture
 
@@ -76,7 +82,7 @@ All API paths are defined in `school_sdk/config.py` as a `URL_ENDPOINT` dict. Ev
 
 ## Git commits
 
-All commits must include a DCO sign-off. Always use `git commit -s` (or `--signoff`) when committing.
+All commits must include a DCO sign-off. Always use `git commit -s` (or `--signoff`) when committing. A pre-commit hook (`.pre-commit-config.yaml`) runs hygiene checks and the offline smoke tests before each commit; install it once after cloning with `uv run pre-commit install`.
 
 ## Known stubs and WIP
 

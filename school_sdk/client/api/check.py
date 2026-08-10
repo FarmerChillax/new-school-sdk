@@ -10,5 +10,5 @@ class CheckSession(BaseCrawler):
 
     def __init__(self, user_client) -> None:
         super().__init__(user_client)
-    
+
     # def check

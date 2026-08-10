@@ -66,7 +66,7 @@ class ScheduleParse():
         self.parse_list:list = []
         self.parse_dict:dict = {}
         self.parse_ics = None
-        
+
         user_message: dict = self.raw.get("xsxx")
         schedule_list: list = self.raw.get("kbList")
         # 用户基本信息
@@ -93,7 +93,7 @@ class ScheduleParse():
                 "color": color,
                 "section": course.get('jcs')
             })
-        
+
         self.parse_dict.setdefault("class_name", user_class_name)
         self.parse_dict.setdefault("username", username)
         self.parse_dict.setdefault("course_list", self.parse_list)

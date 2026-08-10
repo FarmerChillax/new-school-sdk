@@ -32,7 +32,7 @@ cnn.load_state_dict(state_dict)
 def check(image: Image) -> str:
 
     predict_dataloader = get_predict_data_loader(image)
-    
+
     for i, (img) in enumerate(predict_dataloader):
         vimage = Variable(img)
         predict_label = cnn(vimage)

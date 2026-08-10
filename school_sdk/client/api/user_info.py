@@ -28,8 +28,8 @@ class Info(BaseCrawler):
             self.raw_info = self._get_raw_info(**kwargs)
             self.info = self._parse(self.raw_info)
         return self.info
-    
-    
+
+
     def _get_raw_info(self, **kwargs):
         """获取用户信息原始数据
         """
@@ -43,7 +43,7 @@ class Info(BaseCrawler):
 
         result = self.get(url=url, params=params, **kwargs)
         return result.content
-    
+
     def _parse(self, html:str) -> dict:
         doc = pq(html)
         info = {
@@ -56,5 +56,5 @@ class Info(BaseCrawler):
             'major': doc('#col_zyfx_id > p').text(),
             'gender': doc('#col_xbm > p').text()
         }
-        
+
         return info

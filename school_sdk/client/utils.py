@@ -38,4 +38,3 @@ def user_is_login(account, html) -> bool:
     if '验证码' in err_msg:
         return False
     return False
-

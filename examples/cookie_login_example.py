@@ -26,4 +26,3 @@ print(score)
 # 获取个人信息
 info = user.get_info()
 print(info)
-

@@ -551,7 +551,7 @@ class BigInteger:
         if self.int_dict['s'] < 0 < r.compare2(ZERO):
             a.sub2(r, r)
         return r
-    
-    
+
+
 ZERO = BigInteger(None).nbv(0)
 ONE = BigInteger(None).nbv(1)

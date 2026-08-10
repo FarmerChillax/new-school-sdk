@@ -50,5 +50,3 @@ class ZFCaptchaDistinguish():
         return self.verify_func()
 
     # def (self)
-
-

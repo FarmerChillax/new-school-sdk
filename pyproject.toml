@@ -51,6 +51,8 @@ school_sdk = ["check_code/model.pkl"]
 [dependency-groups]
 dev = [
 	"autopep8==1.5.7",
+	"pre-commit>=3",
+	"pytest>=7",
 ]
 
 [project.urls]
