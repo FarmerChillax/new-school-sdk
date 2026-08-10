@@ -70,8 +70,4 @@ class ScheduleClass(BaseCrawler):
         url = self.school.config['url_endpoints']['CLASS_SCHEDULE']['API']
         
         res = self.post(url=url, params=params, data=data, **kwargs)
-        print(res.json(), res.status_code)
-        import json
-        
-        with open("test.json", 'w', encoding='utf-8') as f:
-            f.write(json.dumps(res.json(), ensure_ascii=False))
+        return res.json()

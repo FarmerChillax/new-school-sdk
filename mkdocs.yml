@@ -19,6 +19,7 @@ extra:
     property: UA-XXXXXXXX-X
   
 markdown_extensions:
+  - admonition
   - pymdownx.highlight
   - pymdownx.inlinehilite
 

@@ -27,8 +27,7 @@ class ScheduleParse():
         self.parse_list:list = []
         self.parse_dict:dict = {}
         self.parse_ics = None
-        if schedule_time != None:
-            self.SCHEDULE_TIME = schedule_time or self.__SCHEDULE_TIME
+        self.SCHEDULE_TIME = schedule_time or self.__SCHEDULE_TIME
 
     def set_schedule_time(self, schedule_time:dict):
         self.SCHEDULE_TIME = schedule_time or self.__SCHEDULE_TIME
@@ -114,9 +113,14 @@ class ScheduleParse():
         Returns:
             [type]: 课程开始和课程结束的时间
         """
-        start, end = b2e.split('-')
-        start_time = self.SCHEDULE_TIME[start]
-        end_time = self.SCHEDULE_TIME[end]
+        start, _, end = b2e.partition('-')
+        end = end or start
+        try:
+            start_time = self.SCHEDULE_TIME[start]
+            end_time = self.SCHEDULE_TIME[end]
+        except KeyError as e:
+            raise KeyError(
+                f"作息时间表缺少第 {e.args[0]} 节的时间配置, 请通过 schedule_time 参数补全") from e
         return {"start": start_time, "last": end_time}
 
     def get_course_week(self, week_text: str) -> list:

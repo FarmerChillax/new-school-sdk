@@ -58,7 +58,7 @@ class Score(BaseCrawler):
         """
         self.raw_score = self._get_score(**kwargs)
 
-    def _get_score(self, year: int, term: int = 1, **kwargs):
+    def _get_score(self, year: int = None, term: int = None, **kwargs):
         """获取教务系统成绩
 
         Args:
@@ -68,6 +68,12 @@ class Score(BaseCrawler):
         Returns:
             json: json数据
         """
+        year = year if year is not None else self.year
+        term = term if term is not None else self.term
+        if year is None:
+            raise ValueError("获取成绩需要指定学年 year")
+        if term is None:
+            term = 1
         self.year = year
         self.term = term
         url = self.endpoints['SCORE']['API']

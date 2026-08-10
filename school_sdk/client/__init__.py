@@ -96,7 +96,7 @@ class UserClient(BaseUserClient):
     info = None
     schedule_class: ScheduleClass
 
-    def __init__(self, school: SchoolClient, account, password) -> None:
+    def __init__(self, school: SchoolClient, account, password, **kwargs) -> None:
         """初始化用户类
         用户类继承自学校
 
@@ -105,13 +105,13 @@ class UserClient(BaseUserClient):
             account (str): 账号
             password (str): 密码
         """
+        super().__init__()
         self.BASE_URL = school.base_url
         self.account = account
         self.password = password
         self.school: SchoolClient = school
         self.score = None
         self.schedule = None
-        self._http = requests.Session()
         self._csrf = None
         self.t = int(time.time() * 1000)
         self._image = None
@@ -141,8 +141,7 @@ class UserClient(BaseUserClient):
 
     def get_class_schedule(self, year: int, term:int = 1, **kwargs):
         self.schedule_class = ScheduleClass(self)
-        self.schedule_class._get_raw(year=2021, term=1, **kwargs)
-        return "dev"
+        return self.schedule_class._get_raw(year=year, term=term, **kwargs)
 
     def get_score(self, year: int, term: int = 1, **kwargs):
         """获取成绩"""
@@ -186,14 +185,20 @@ class UserClient(BaseUserClient):
         """设置user cookies
 
         Args:
-            cookies (str): Cookies 字符串
+            cookies (str): Cookies 字符串, 支持 `k1=v1; k2=v2` 多个键值对
         """
-        cookies = cookies.strip()
-        key, value = cookies.split('=')
-        self._http.cookies.set(key, value)
+        for item in cookies.strip().split(';'):
+            item = item.strip()
+            if not item:
+                continue
+            key, sep, value = item.partition('=')
+            if not sep:
+                continue
+            self._http.cookies.set(key.strip(), value.strip())
 
     def get_dev_user(self, cookies: str, **kwargs):
-        self._http = requests.Session()
+        # 重建 session, 丢弃已有 cookie 并恢复默认请求头
+        super().__init__()
         self.set_cookies(cookies=cookies, **kwargs)
         return self
 
