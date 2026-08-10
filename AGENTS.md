@@ -63,7 +63,7 @@ Both `BaseUserClient` and `BaseCrawler` expose `.get()` / `.post()` / `._request
 ### CAPTCHA recognition (`school_sdk/check_code/`)
 
 - `ZFCaptchaDistinguish` wraps both CAPTCHA types
-- Image captcha uses a 3-conv-layer CNN (`model.py`) with pre-trained weights in `model.pkl` (~39 MB binary committed to git), requiring PyTorch + torchvision
+- Image captcha uses a 3-conv-layer CNN (`model.py`) with pre-trained weights in `model.pkl` (~39 MB binary committed to git), requiring PyTorch + torchvision. These are an **optional extra** since v1.9.0 — install via `pip install school-sdk[kaptcha]`
 - Slider captcha uses a heuristic in `type.py`
 
 ### URL endpoint configuration

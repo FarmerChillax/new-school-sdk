@@ -5,6 +5,14 @@
 $ pip install school-sdk
 ```
 
+如果你的学校启用了图形验证码（`captcha_type="kap"` 开头），还需要安装深度学习依赖：
+```Shell
+$ pip install school-sdk[kaptcha]
+```
+
+!!! note
+    无验证码与滑块验证码（`captcha_type="captcha"`）不需要额外依赖。
+
 ## 使用示例
 
 ```py

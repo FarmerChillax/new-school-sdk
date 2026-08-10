@@ -58,10 +58,19 @@ $ pip install school-sdk
 $ pip install zf-school-sdk
 ```
 
-> 如果机器内存不足，可以使用 pip `--no-cache-dir` 选项来安装
-> e.g. `pip --no-cache-dir install school-sdk`
-> 
-> 或者指定构建路径，e.g. `pip install -b ~/pip_build_dir school-sdk`
+> ⚠️ **v1.9.0 起 PyTorch 不再是必装依赖**
+>
+> 只有你的学校启用了图形验证码（`captcha_type` 为 `kap` 开头）才需要 PyTorch，请额外安装：
+>
+> ```Shell
+> $ uv add school-sdk[kaptcha]
+> # or
+> $ pip install school-sdk[kaptcha]
+> ```
+>
+> 无验证码与滑块验证码（`captcha_type="captcha"`）不需要额外依赖。
+>
+> `[kaptcha]` 会拉取数百 MB 的 PyTorch，如果机器内存/磁盘紧张，可加 `--no-cache-dir` 安装，e.g. `pip install --no-cache-dir school-sdk[kaptcha]`
 
 ```Python
 from school_sdk import SchoolClient
@@ -92,6 +101,8 @@ $ uv run python examples/base_sample.py
 ```
 
 > 如果只需要运行时依赖，可使用：`uv sync --no-dev`
+>
+> 如需本地调试图形验证码识别：`uv sync --extra kaptcha`
 
 ## Api Function
 
@@ -115,7 +126,7 @@ $ uv run python examples/base_sample.py
 | ssl           | False        | 教务系统是否使用https    |
 | name          | None         | 学校名称                 |
 | exist_verify  | False        | 是否存在验证码           |
-| captcha_type  | captcha      | 验证码类型，枚举类型(kaptcha: 常规 或 captcha: 滑块) |
+| captcha_type  | captcha      | 验证码类型，枚举类型(kaptcha: 常规图形验证码，需安装 `school-sdk[kaptcha]` 或 captcha: 滑块) |
 | retry         | 10           | 登录重试次数             |
 | lan_host      | None         | 内网地址（暂不可用）                 |
 | lan_port      | 80           | 内网地址端口（暂不可用）             |

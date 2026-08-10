@@ -20,7 +20,13 @@ data_file = os.path.dirname(os.path.realpath(__file__)) + os.sep + 'model.pkl'
 # cnn = CNN().to(device=device)
 cnn = CNN()
 cnn.eval()
-cnn.load_state_dict(torch.load(data_file, map_location="cpu"))
+try:
+    # torch >= 2.6 默认 weights_only=True, 显式声明避免兼容性告警/异常
+    state_dict = torch.load(data_file, map_location="cpu", weights_only=True)
+except TypeError:
+    # torch < 2.6 不支持 weights_only 参数
+    state_dict = torch.load(data_file, map_location="cpu")
+cnn.load_state_dict(state_dict)
 
 
 def check(image: Image) -> str:

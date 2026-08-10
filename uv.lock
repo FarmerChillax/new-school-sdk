@@ -552,7 +552,7 @@ wheels = [
 
 [[package]]
 name = "school-sdk"
-version = "1.7.1"
+version = "1.9.0"
 source = { editable = "." }
 dependencies = [
     { name = "bs4" },
@@ -560,6 +560,10 @@ dependencies = [
     { name = "pillow" },
     { name = "pyquery" },
     { name = "requests" },
+]
+
+[package.optional-dependencies]
+kaptcha = [
     { name = "torch" },
     { name = "torchvision" },
 ]
@@ -576,9 +580,10 @@ requires-dist = [
     { name = "pillow", specifier = ">=8.3.1" },
     { name = "pyquery", specifier = ">=1.4.3" },
     { name = "requests", specifier = ">=2.26.0" },
-    { name = "torch", specifier = ">=1.10.1,<2" },
-    { name = "torchvision", specifier = ">=0.11.2,<1" },
+    { name = "torch", marker = "extra == 'kaptcha'", specifier = ">=1.10.1" },
+    { name = "torchvision", marker = "extra == 'kaptcha'", specifier = ">=0.11.2" },
 ]
+provides-extras = ["kaptcha"]
 
 [package.metadata.requires-dev]
 dev = [{ name = "autopep8", specifier = "==1.5.7" }]
