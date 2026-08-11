@@ -1,0 +1,21 @@
+codecov:
+  require_ci_to_pass: false   # 覆盖率报告不依赖其他 job 的结果
+
+coverage:
+  status:
+    project:
+      default:
+        informational: true    # 生成状态但不阻塞合并
+    patch:
+      default:
+        informational: true    # 同上
+
+comment:
+  layout: "header, diff, files"
+  behavior: default
+  require_changes: false       # 每次 PR 都评论, 便于早期观察趋势
+
+ignore:
+  - "school_sdk/PyRsa/**"      # vendored 代码, 与 [tool.coverage.run] omit 保持一致
+  - "tests/**"
+  - "examples/**"

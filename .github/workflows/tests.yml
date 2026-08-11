@@ -31,3 +31,23 @@ jobs:
           python-version: "3.12"
       # 不安装项目依赖, 仅校验文档能否严格构建
       - run: uv run --no-project --with mkdocs-material mkdocs build --strict
+
+  coverage:
+    name: coverage (py3.12)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - run: uv sync
+      - name: Run tests with coverage
+        run: uv run pytest tests/ -v --cov=school_sdk --cov-report=xml --cov-report=term-missing
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          files: coverage.xml
+          flags: unittest
+          fail_ci_if_error: false
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

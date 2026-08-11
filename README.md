@@ -13,6 +13,7 @@
 
 <!-- <p align = "center"> -->
   [![Downloads](https://pepy.tech/badge/school-sdk)](https://pepy.tech/project/school-sdk)
+  [![codecov](https://codecov.io/gh/FarmerChillax/new-school-sdk/branch/master/graph/badge.svg)](https://codecov.io/gh/FarmerChillax/new-school-sdk)
     <a href = "https://www.python.org">
         <img alt = "python3" src = "https://img.shields.io/badge/language-python3-brightgreen" />
     </a>
