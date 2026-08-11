@@ -14,3 +14,5 @@ dist
 zf_school_sdk.egg-info
 .env
 .venv
+coverage.xml
+.coverage
