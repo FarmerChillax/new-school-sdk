@@ -48,4 +48,3 @@ class CNN(nn.Module):
         out = self.fc(out)
         out = self.rfc(out)
         return out
-

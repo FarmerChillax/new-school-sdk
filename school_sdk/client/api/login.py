@@ -40,7 +40,7 @@ class ZFLogin(BaseCrawler):
                     if self.verification_captcha():
                         break
                 if not self._post_login():
-                    raise LoginException("xxx", "滑块登录失败")
+                    raise LoginException(400, "滑块登录失败")
                 return True
             if self.captcha_type.startswith('kap'):
                 # 图形识别验证码
@@ -50,13 +50,13 @@ class ZFLogin(BaseCrawler):
                     is_login = self._kaptcha_login(verify_code=verify_code)
                     if is_login:
                         return is_login
-                raise LoginException("xxx", "验证码登录失败")
+                raise LoginException(400, "验证码登录失败")
         else:
             # 没有验证码登录
             if self._post_login():
                 return True
-        
-        raise LoginException("xxx", "登录失败")
+
+        raise LoginException(400, "登录失败")
 
     def __init__(self, user_client) -> None:
         super().__init__(user_client)
@@ -129,7 +129,7 @@ class ZFLogin(BaseCrawler):
         res = self.get(url, params=params)
         if res.status_code == 200:
             return res.content
-    
+
 
     def _kaptcha_login(self, verify_code:str) -> bool:
         """发送登录请求
@@ -202,7 +202,7 @@ class ZFLogin(BaseCrawler):
         """
         params = {
             "type": "refresh",
-            "time": {self.t},
+            "time": self.t,
             "instanceId": "zfcaptchaLogin"
         }
         url = self.path["CAPTCHA"]
@@ -270,6 +270,3 @@ class ZFLogin(BaseCrawler):
                          "t": int(time.time() * 1000)})
             time.sleep(0.01)
         return track
-
-
-

@@ -53,7 +53,7 @@ class Schedule(BaseCrawler):
             list: 仅课表列表
         """
         if not self.is_load_schedule():
-            self.load_schedule()
+            self.load_schedule(**kwargs)
         return self.schedule_parse.get_list()
 
     def get_raw_schedule(self, **kwargs):
@@ -63,7 +63,7 @@ class Schedule(BaseCrawler):
             [json]: 原始课表数据
         """
         if self.raw_schedule is None:
-            self.load_schedule()
+            self.load_schedule(**kwargs)
         return self.raw_schedule
 
     def parse_ics(self):
@@ -80,7 +80,13 @@ class Schedule(BaseCrawler):
         self.raw_schedule = self._get_student_schedule(**kwargs)
         self.schedule_parse.load(self.raw_schedule)
 
-    def _get_student_schedule(self, year, term, **kwargs):
+    def _get_student_schedule(self, year=None, term=None, **kwargs):
+        year = year if year is not None else self.year
+        term = term if term is not None else self.term
+        if year is None:
+            raise ValueError("获取课表需要指定学年 year")
+        if term is None:
+            term = 1
         self.year = year
         self.term = term
         params = {
@@ -99,4 +105,4 @@ class Schedule(BaseCrawler):
         # print(res.text, res, res.status_code)
         if user_is_login(self.account, res.text):
             return res.json()
-        raise LoginException()
+        raise LoginException(400, f"获取课表失败: 账号 {self.account} 的 session 已失效, 请重新登录")

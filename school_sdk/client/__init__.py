@@ -36,7 +36,7 @@ class SchoolClient():
             name (str, optional): 学校名称. Defaults to None.
 
             exist_verify (bool, optional): 是否有验证码. Defaults to False.
-            captcha_type (str, optional): 验证码类型. Defaults to captcha. 
+            captcha_type (str, optional): 验证码类型. Defaults to captcha.
                     滑块传入cap开头, 图片传入kap开头 与教务系统的url地址对应, 默认识别滑块验证码.
             retry (int, optional): 登录重试次数. Defaults to 10.
 
@@ -96,7 +96,7 @@ class UserClient(BaseUserClient):
     info = None
     schedule_class: ScheduleClass
 
-    def __init__(self, school: SchoolClient, account, password) -> None:
+    def __init__(self, school: SchoolClient, account, password, **kwargs) -> None:
         """初始化用户类
         用户类继承自学校
 
@@ -105,13 +105,13 @@ class UserClient(BaseUserClient):
             account (str): 账号
             password (str): 密码
         """
+        super().__init__()
         self.BASE_URL = school.base_url
         self.account = account
         self.password = password
         self.school: SchoolClient = school
         self.score = None
         self.schedule = None
-        self._http = requests.Session()
         self._csrf = None
         self.t = int(time.time() * 1000)
         self._image = None
@@ -126,7 +126,7 @@ class UserClient(BaseUserClient):
     def init_schedule(self):
         if self.schedule is None:
             self.schedule = Schedule(self)
-    
+
     def set_schedule_time(self, schedule_time: dict):
         self.schedule.schedule_parse.set_schedule_time(schedule_time=schedule_time)
 
@@ -141,8 +141,7 @@ class UserClient(BaseUserClient):
 
     def get_class_schedule(self, year: int, term:int = 1, **kwargs):
         self.schedule_class = ScheduleClass(self)
-        self.schedule_class._get_raw(year=2021, term=1, **kwargs)
-        return "dev"
+        return self.schedule_class._get_raw(year=year, term=term, **kwargs)
 
     def get_score(self, year: int, term: int = 1, **kwargs):
         """获取成绩"""
@@ -186,27 +185,33 @@ class UserClient(BaseUserClient):
         """设置user cookies
 
         Args:
-            cookies (str): Cookies 字符串
+            cookies (str): Cookies 字符串, 支持 `k1=v1; k2=v2` 多个键值对
         """
-        cookies = cookies.strip()
-        key, value = cookies.split('=')
-        self._http.cookies.set(key, value)
+        for item in cookies.strip().split(';'):
+            item = item.strip()
+            if not item:
+                continue
+            key, sep, value = item.partition('=')
+            if not sep:
+                continue
+            self._http.cookies.set(key.strip(), value.strip())
 
     def get_dev_user(self, cookies: str, **kwargs):
-        self._http = requests.Session()
+        # 重建 session, 丢弃已有 cookie 并恢复默认请求头
+        super().__init__()
         self.set_cookies(cookies=cookies, **kwargs)
         return self
 
     def proxy_request(self, method: str, url_or_endpoint: str, **kwargs) -> requests.Response:
         """此方法用于补充 sdk 未实现的业务功能，以支持各种登录后的教务系统操作
-        
+
         用户可以通过此方法实现各种登录后的操作，但需自行完成相关业务逻辑，如解析请求体等
 
         Args:
             method (str): HTTP Method
             url_or_endpoint (str): 请求的完整 URL 或者具体的请求 HTTP Path
             **kwargs: 这些参数将会透传到 requests 网络请求库的 request 方法中，具体参数请查阅其文档: https://docs.python-requests.org/en/latest/api/#requests.request
-            
+
         Returns:
             requests.Response: HTTP Response
         """

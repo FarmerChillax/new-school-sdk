@@ -37,8 +37,14 @@ def captcha_func(image:Image) -> Tuple[int, int]:
 
 def kaptcha_func(image:Image) -> str:
     """图片验证码回调函数
+        依赖 PyTorch, 需安装 optional extra: pip install school-sdk[kaptcha]
     """
-    from school_sdk.check_code.predict import check
+    try:
+        from school_sdk.check_code.predict import check
+    except ImportError as e:
+        raise ImportError(
+            "图形验证码识别需要 PyTorch 依赖, 请安装 school-sdk[kaptcha]: "
+            "pip install school-sdk[kaptcha]") from e
 
     code = check(image)
     # print(code)

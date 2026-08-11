@@ -14,7 +14,7 @@ class Base64:
 
         self.b64map = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
         self.b64pad = "="
-        
+
         self.idx = "0123456789abcdefghijklmnopqrstuvwxyz"
 
     def hex2b64(self, h):

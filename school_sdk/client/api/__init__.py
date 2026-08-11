@@ -52,7 +52,7 @@ class BaseCrawler():
         return self._requests(method='POST', url_or_endpoint=url, **kwargs)
 
     def update_headers(self, headers: dict):
-        self._client.headers.update(headers)
+        self._http.headers.update(headers)
 
     def is_login(self, html:str):
         re_str = f'value="{self.account}"'

@@ -4,7 +4,7 @@ theme:
   language: zh
 
   icon:
-    repo: fontawesome/brands/git-alt 
+    repo: fontawesome/brands/git-alt
 
   features:
     - navigation.top
@@ -17,8 +17,8 @@ extra:
   analytics:
     provider: google
     property: UA-XXXXXXXX-X
-  
+
 markdown_extensions:
+  - admonition
   - pymdownx.highlight
   - pymdownx.inlinehilite
-

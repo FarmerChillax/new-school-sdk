@@ -26,7 +26,7 @@ class BaseUserClient():
     def _generate_headers(self, **kwargs):
         headers = Headers(browser="chrome", os="win", headers=True).generate()
         return headers
-    
+
     def _request(self, method: str, url_or_endpoint: str, **kwargs) -> requests.Response:
         """发起网络请求，并自动拼接请求路径
 
@@ -47,14 +47,12 @@ class BaseUserClient():
             **kwargs
         )
         return res
-    
+
     def get(self, url, **kwargs):
         return self._request(method='GET', url_or_endpoint=url, **kwargs)
-    
+
     def post(self, url, **kwargs):
         return self._request(method='POST', url_or_endpoint=url, **kwargs)
 
     def _update_headers(self, headers_dict):
         self._http.headers.update(headers_dict)
-    
-

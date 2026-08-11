@@ -1,0 +1,29 @@
+# 提交前自动检查, 安装钩子: uv run pre-commit install
+# 手动全量运行: uv run pre-commit run --all-files
+# 紧急跳过(不推荐): git commit --no-verify
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-yaml
+      # model.pkl 约 39 MB, 属于随包分发的二进制权重, 不做检查
+      - id: check-added-large-files
+        exclude: ^school_sdk/check_code/model\.pkl$
+
+  # 规则集在 pyproject.toml [tool.ruff.lint] 中定义, 采用白名单渐进式启用
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+        args: [--fix]
+
+  # 关键回归: 离线冒烟测试必须全部通过才允许提交
+  # system 语言直接复用项目 venv, 避免重复安装依赖; 测试仅需约 0.1s
+  - repo: local
+    hooks:
+      - id: pytest-offline
+        name: pytest offline smoke tests
+        entry: uv run pytest tests/ -q
+        language: system
+        pass_filenames: false
+        always_run: true
