@@ -26,6 +26,22 @@ Gdust = SchoolClient("172.16.254.1")
 user:UserClient = Gdust.user_login("account", "password")
 ```
 
+## 配置验证码
+
+登录页存在验证码时, 需要开启 `exist_verify` 并按验证码形态选择 `captcha_type`：
+
+```py
+# 滑块验证码(拖动拼图): cap 开头
+Gdust = SchoolClient("172.16.254.1", exist_verify=True, captcha_type="captcha")
+
+# 图形验证码(输入图中字符): kap 开头, 需安装 pip install school-sdk[kaptcha]
+Gdust = SchoolClient("172.16.254.1", exist_verify=True, captcha_type="kaptcha")
+```
+
+!!! note
+    登录页没有验证码时保持默认配置即可（`exist_verify=False`）。
+    全部学校参数说明见[学校参数](./school_args.md)。
+
 ## 获取【个人】课表
 
 ```py
@@ -47,3 +63,29 @@ print(score)
 info = user.get_info()
 print(info)
 ```
+
+## 处理常见异常
+
+登录与会话相关的失败以 `LoginException` 抛出, 异常信息带有教务系统的原始提示：
+
+```py
+from school_sdk import SchoolClient
+from school_sdk.client.exceptions import LoginException
+
+Gdust = SchoolClient("172.16.254.1")
+try:
+    user = Gdust.user_login("account", "password")
+except LoginException as e:
+    print(f"登录失败: {e}")
+```
+
+!!! tip
+    一次登录后可反复调用 `get_schedule` / `get_score` / `get_info`, 无需重复登录；
+    会话失效时可调用 `user.check_session()` 自动重登。
+
+## 下一步
+
+- [学校参数](./school_args.md): `SchoolClient` 全部配置项与自定义端点示例
+- [接口方法](../接口方法/index.md): 各 API 的参数与返回说明
+- [最佳实践](../最佳实践.md): 会话复用、Cookie 调试、异常处理等推荐做法
+- [常见问题](../常见问题/index.md): 高频报错的排查思路

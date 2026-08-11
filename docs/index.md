@@ -41,3 +41,11 @@ Gdust = SchoolClient("172.16.254.1")
 # 实例化用户
 user:UserClient = Gdust.user_login("account", "password")
 ```
+
+## 文档导航
+
+- [快速开始](快速开始/index.md): 安装、登录与三类数据查询的最小示例
+- [接口方法](接口方法/index.md): 各 API 的参数与返回说明
+- [最佳实践](最佳实践.md): 会话复用、Cookie 调试、异常处理等推荐做法
+- [常见问题](常见问题/index.md): 高频报错的排查思路
+- [架构设计](架构设计.md): 模块分层、登录流程与已知约束, 面向二次开发
