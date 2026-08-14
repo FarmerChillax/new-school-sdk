@@ -16,3 +16,5 @@ zf_school_sdk.egg-info
 .venv
 coverage.xml
 .coverage
+
+site/

@@ -8,6 +8,7 @@ theme:
 
   features:
     - navigation.top
+    - navigation.sections
 
 
 repo_url: https://github.com/Farmer-chong/new-school-sdk
@@ -17,6 +18,21 @@ extra:
   analytics:
     provider: google
     property: UA-XXXXXXXX-X
+
+nav:
+  - 首页: index.md
+  - 快速开始:
+    - 简单示例: 快速开始/index.md
+    - 学校参数: 快速开始/school_args.md
+  - 接口方法:
+    - 概览: 接口方法/index.md
+    - 用户登录: 接口方法/user_login.md
+    - 课表查询: 接口方法/get_schedule.md
+    - 成绩查询: 接口方法/get_score.md
+    - 个人信息: 接口方法/get_info.md
+    - 其他接口: 接口方法/others.md
+  - 最佳实践: 最佳实践.md
+  - 常见问题: 常见问题/index.md
 
 markdown_extensions:
   - admonition
