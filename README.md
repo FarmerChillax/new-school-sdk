@@ -1,5 +1,3 @@
-新版正方系统 Python SDK。(支持自动识别、处理滑块验证码与常规验证码，如果觉得还不错,给个小星星趴~⭐)
-
 > [!IMPORTANT]
 > 📢📢📢
 >
@@ -26,6 +24,8 @@
     [![PyPI Version](http://img.shields.io/pypi/v/school-sdk.svg)](https://pypi.python.org/pypi/school-sdk)
 
 
+
+新版正方系统 Python SDK。(支持自动识别、处理滑块验证码与常规验证码，如果觉得还不错,给个小星星趴~⭐)
 
 [在线文档](https://farmerChillax.github.io/new-school-sdk/)
 
