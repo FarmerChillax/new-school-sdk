@@ -1,17 +1,14 @@
 新版正方系统 Python SDK。(支持自动识别、处理滑块验证码与常规验证码，如果觉得还不错,给个小星星趴~⭐)
 
-> 这是全网唯一一个自动处理验证码的新版教务系统 SDK :p
+> [!IMPORTANT]
+> 📢📢📢
 >
-> 并且本项目有完善的 type hints
+> **这是全网唯一一个自动处理验证码的新版教务系统 SDK, 并且本项目有完善的 type hints.** 
+> 
+> 本项目理论上支持教务系统所有功能，兼容所有学校 :P
+>
+> 使用过程中如有遇到本 SDK 暂不支持的功能，请使用 [proxy_request](./examples/proxy_request_examples.py)
 
-<!-- [![Build Status](https://travis-ci.org/dairoot/school-api.svg?branch=master)](https://travis-ci.org/dairoot/school-api)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dairoot/school-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dairoot/school-api/?branch=master)
-[![codecov](https://codecov.io/gh/dairoot/school-api/branch/master/graph/badge.svg)](https://codecov.io/gh/dairoot/school-api)
-[![pypi](https://img.shields.io/pypi/v/school-api.svg)](https://pypi.org/project/school-api/)
-[![Downloads](https://pepy.tech/badge/school-sdk)](https://pepy.tech/project/school-api) -->
-
-
-<!-- <p align = "center"> -->
   [![Downloads](https://pepy.tech/badge/school-sdk)](https://pepy.tech/project/school-sdk)
   [![codecov](https://codecov.io/gh/FarmerChillax/new-school-sdk/branch/master/graph/badge.svg)](https://codecov.io/gh/FarmerChillax/new-school-sdk)
     <a href = "https://www.python.org">
@@ -28,10 +25,6 @@
     </a>
     [![PyPI Version](http://img.shields.io/pypi/v/school-sdk.svg)](https://pypi.python.org/pypi/school-sdk)
 
-<!-- </p> -->
-
-> 📢📢📢 本项目理论上支持教务系统所有功能，兼容所有学校  
-> 使用过程中如有遇到本 SDK 暂不支持的功能，请使用 [proxy_request](./examples/proxy_request_examples.py)
 
 
 [在线文档](https://farmerChillax.github.io/new-school-sdk/)
